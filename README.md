@@ -6,6 +6,14 @@ This series of sessions is designed to give students who are learnin the basics 
 
 ## What is covered
 
+* **Source Control** - Git & GitHub
+* **Maintainable & Testable Code** - SOLID, DI & Naming Conventions
+* **Unit Testing** - Code Coverage and Testing Techniques
+* **Persitance, Patterns & Testing** - SQL, ORMs (Raw, Dapper, EF Core) & Testing Data Access
+* **Web Apis & Configuration** - REST, CQRS ASPNET CORE & Configuring Applications
+* **Deployment** - Cloud, Azure, CI/CD & GitHub Actions
+* **Post Deployment** - Logging, Monitoring & Bug Fixing
+
 ## Who is delivering it
 
 ### Billy Mumby
