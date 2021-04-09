@@ -21,3 +21,7 @@ This series of sessions is designed to give students who are learnin the basics 
 ### Robert Bennett
 
 ## Why are we doing this
+
+# Competition
+
+At the end of this delivered material there is going to be a competition run to develop some software with a prize at the end.
