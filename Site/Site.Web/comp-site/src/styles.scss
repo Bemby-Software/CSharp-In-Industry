@@ -5,4 +5,45 @@
 
 html {
   font-family: monospace;
+  @apply text-gray-600;
 }
+
+.h-screen-9 {
+  height: 90vh;
+}
+
+.h-screen-8 {
+  height: 80vh;
+}
+
+.h-screen-7 {
+  height: 70vh;
+}
+
+.h-screen-6 {
+  height: 60vh;
+}
+
+.h-screen-5 {
+  height: 50vh;
+}
+
+.h-screen-4 {
+  height: 40vh;
+}
+
+.h-screen-3 {
+  height: 30vh;
+}
+
+.h-screen-2 {
+  height: 20vh;
+}
+
+
+.flex-vh-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
