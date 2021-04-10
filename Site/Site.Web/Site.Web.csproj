@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <FrontendRoot>comp-site</FrontendRoot>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
+    <UserSecretsId>e6b55a44-2a31-41d3-be3b-0ac381350332</UserSecretsId>
   </PropertyGroup>
   
   <ItemGroup>
@@ -21,9 +23,9 @@
 
   <Target Name="PublishAngular" AfterTargets="ComputeFilesToPublish">
     <Exec Command="npm install" WorkingDirectory="$(FrontendRoot)" />
-    <Exec Command="npm run build -- --prod" WorkingDirectory="$(FrontendRoot)" />
+    <Exec Command="npm run build:prod" WorkingDirectory="$(FrontendRoot)" />
     <ItemGroup>
-      <DistFiles Include="$(FrontendRoot)dist**" />
+      <DistFiles Include="$(FrontendRoot)/dist/**" />
       <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
