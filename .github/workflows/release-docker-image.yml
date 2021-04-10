@@ -37,5 +37,5 @@ jobs:
           run: docker build -t docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site Site/Site.Web/
 
         - name: Publish Package
-          run: docker push dock
+          run: docker push docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site
     
