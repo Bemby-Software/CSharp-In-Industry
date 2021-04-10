@@ -39,9 +39,9 @@ jobs:
         - name: Publish Package
           run: docker push docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site
           
-       # - name: Call App Service Web Hook
-        #  uses: wei/curl@master
-       #   with:
-        #    args: -X POST ${{ secrets.APP_SERVICE_WEB_HOOK }}
+        - name: Call App Service Web Hook
+          uses: wei/curl@master
+          with:
+            args: -X POST ${{ secrets.APP_SERVICE_WEB_HOOK }}
           
     
