@@ -18,10 +18,10 @@ jobs:
           dotnet-version: 5.0.x
         
       - name: Build
-        run: dotnet build ./Site/Site.sln
+        run: dotnet build Site/Site.sln -c Release
         
       - name: Test
-        run: dotnet test ./Site/Site.sln
+        run: dotnet test Site/Site.sln -c Release
         
       
 
