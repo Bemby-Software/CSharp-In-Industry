@@ -3,9 +3,26 @@
 @import 'tailwindcss/utilities';
 /* You can add global styles to this file, and also import other style files */
 
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  /* ensure padding and border does not increase height and width of elements */
+  box-sizing: inherit; 
+}
+
 html {
   font-family: monospace;
   @apply text-gray-600;
+}
+
+.sink {
+  transition: transform .2s;
+}
+
+.sink:active {
+  transform: translateY(2px) scale(0.95);
 }
 
 .h-screen-9 {

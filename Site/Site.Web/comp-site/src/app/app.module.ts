@@ -11,6 +11,10 @@ import { SponsorsListComponent } from './components/landing/sponsors-list/sponso
 import { SponsorsItemComponent } from './components/landing/sponsors-item/sponsors-item.component';
 import { MentorsListComponent } from './components/landing/mentors-list/mentors-list.component';
 import { MentorCardComponent } from './components/landing/mentor-card/mentor-card.component';
+import { SocialListComponent } from './components/common/social-list/social-list.component';
+import { SocialButtonComponent } from './components/common/social-button/social-button.component';
+import { JudgedOnComponent } from './components/landing/judged-on/judged-on.component';
+import { PrimaryTitleComponent } from './components/common/primary-title/primary-title.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +26,16 @@ import { MentorCardComponent } from './components/landing/mentor-card/mentor-car
     SponsorsListComponent,
     SponsorsItemComponent,
     MentorsListComponent,
-    MentorCardComponent
+    MentorCardComponent,
+    SocialListComponent,
+    SocialButtonComponent,
+    JudgedOnComponent,
+    PrimaryTitleComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

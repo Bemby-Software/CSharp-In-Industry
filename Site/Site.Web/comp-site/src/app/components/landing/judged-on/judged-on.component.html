@@ -1,0 +1,23 @@
+<div class="bg-white p-5">
+
+<div class="flex text-center justify-center">
+
+    <app-primary-title class="" [title]="'Judged On'">
+
+    </app-primary-title>
+
+</div>
+
+
+<div class="grid gap-5 grid-cols-1 md:grid-cols-3 p-5">
+
+    <div *ngFor="let i of list" class="border border-gray-300 shadow-sm rounded-lg h-screen-3">
+        <div class="h-3/4 bg-gray-100"></div>
+        <div class="h-1/4 flex items-center justify-center">
+            <h3 class="text-lg">Readability</h3>
+        </div>
+    </div>
+
+</div>
+
+</div>
