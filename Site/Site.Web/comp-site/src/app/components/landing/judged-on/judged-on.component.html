@@ -1,23 +1,28 @@
-<div class="bg-white p-5">
+<div class="bg-white py-20">
 
-<div class="flex text-center justify-center">
+    <div class="flex text-center justify-center">
 
-    <app-primary-title class="" [title]="'Judged On'">
+        <app-primary-title class="" [title]="'Judged On'">
 
-    </app-primary-title>
+        </app-primary-title>
 
-</div>
-
-
-<div class="grid gap-5 grid-cols-1 md:grid-cols-3 p-5">
-
-    <div *ngFor="let i of list" class="border border-gray-300 shadow-sm rounded-lg h-screen-3">
-        <div class="h-3/4 bg-gray-100"></div>
-        <div class="h-1/4 flex items-center justify-center">
-            <h3 class="text-lg">Readability</h3>
-        </div>
     </div>
 
-</div>
+
+    <div style="grid-auto-rows: 1fr;" class="grid gap-5 grid-cols-1 md:grid-cols-3 p-5">
+
+        <div *ngFor="let i of criteria" class="border border-gray-300 shadow-sm rounded-lg">
+
+
+            <div class="h-44 bg-gray-100 flex items-center justify-center">
+                <i [ngClass]="getClassForCriteriaIcon(i)"></i>
+            </div>
+            <div class="h-14 flex flex-col items-center justify-center">
+                <h3 class="text-lg">{{i.title}}</h3>
+            </div>
+
+            <p class="p-5 text-center text-sm">{{i.description}}</p>
+            </div>
+    </div>
 
 </div>
