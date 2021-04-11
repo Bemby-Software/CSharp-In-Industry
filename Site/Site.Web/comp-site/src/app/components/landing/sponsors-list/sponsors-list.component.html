@@ -1,0 +1,13 @@
+<div class="flex bg-white text-center items-center flex-col pt-5 pb-24">
+    <div class="text-center w-3/4 h-3/4 pt-10">
+        <h1 class="uppercase text-4xl">
+            Sponsors
+        </h1>
+        <div class="border-b border-gray-500 w-3/4 inline-block"></div>
+    </div>
+    <div class="grid gap-10 grid-cols-1 sm:grid-cols-2 w-3/4 mt-10">
+
+        <app-sponsors-item *ngFor="let sponsor of sponsors" [sponsor]="sponsor"></app-sponsors-item>
+
+    </div>
+</div>

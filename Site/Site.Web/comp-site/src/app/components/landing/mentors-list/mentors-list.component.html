@@ -1,0 +1,11 @@
+<div class="bg-green-300 flex flex-col text-center items-center pt-5 pb-24">
+    <div class="text-center w-3/4 h-3/4 pt-10">
+        <h1 class="uppercase text-4xl">
+            mentors
+        </h1>
+        <div class="border-b border-gray-500 w-3/4 inline-block"></div>
+    </div>
+    <div class="grid gap-4 grid-cols-1 w-2/3 mt-10">
+        <app-mentor-card *ngFor="let mentor of mentors" [mentor]="mentor"></app-mentor-card>
+    </div>
+</div>

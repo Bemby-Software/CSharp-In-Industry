@@ -12,8 +12,5 @@ export class LandingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  goToSignUp(el: HTMLElement) {
-    el.scrollIntoView({behavior: "smooth"});
-  }
 
 }
