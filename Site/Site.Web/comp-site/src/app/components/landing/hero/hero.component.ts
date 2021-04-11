@@ -1,5 +1,5 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
+import { CompetitionName } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-hero',
@@ -9,6 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HeroComponent implements OnInit {
 
   @Input() scrollTo: HTMLElement | null;
+  title: string = CompetitionName;
 
   constructor() { 
     this.scrollTo = null;
