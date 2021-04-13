@@ -14,11 +14,11 @@ namespace Site.Core.DAL.Transactions
         private const string InsertTeamSql = @"INSERT INTO Teams (Name, CreatedAt) VALUES (@Name, @CreatedAt); 
                                                 SELECT SCOPE_IDENTITY();";
         
-        private const string InsertParticipantsSql = @"INSERT INTO Participants (Forename, Surname, Email TeamId)
-                                                        VALUES (@Forename, @Surname, @Email @TeamId);
+        private const string InsertParticipantsSql = @"INSERT INTO Participants (Forename, Surname, Email, TeamId)
+                                                        VALUES (@Forename, @Surname, @Email, @TeamId);
                                                         SELECT SCOPE_IDENTITY();";
         
-        private const string InsertTokensSql = @"INSERT INTO Tokens (CreatedAt, IsValid, Value, TeamId, ParticipantId)
+        private const string InsertTokensSql = @"INSERT INTO Tokens (CreatedAt, IsValid, [Value], TeamId, ParticipantId)
                                                  VALUES (@CreatedAt, @IsValid, @Value, @TeamId, @ParticipantId)";
 
         public SignUpTransaction(IDbConnection dbConnection)
@@ -33,7 +33,7 @@ namespace Site.Core.DAL.Transactions
 
             try
             {
-                var teamIds = await _dbConnection.QueryAsync<int>(InsertTeamSql, team);
+                var teamIds = await _dbConnection.QueryAsync<int>(InsertTeamSql, team, transaction);
 
                 var teamId = teamIds.First();
                 
@@ -41,11 +41,11 @@ namespace Site.Core.DAL.Transactions
 
                 foreach (var participant in team.Participants)
                 {
-                    var ids = await _dbConnection.QueryAsync<int>(InsertParticipantsSql, participant);
+                    var ids = await _dbConnection.QueryAsync<int>(InsertParticipantsSql, participant, transaction);
                     participant.Token.ParticipantId = ids.First();
                     participant.Token.TeamId = teamId;
 
-                    await _dbConnection.ExecuteAsync(InsertTokensSql, participant.Token);
+                    await _dbConnection.ExecuteAsync(InsertTokensSql, participant.Token, transaction);
                 }
                 
                 transaction.Commit();
