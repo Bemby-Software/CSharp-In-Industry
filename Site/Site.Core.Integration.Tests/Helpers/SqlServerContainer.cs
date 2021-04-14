@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Docker.DotNet;
 using Docker.DotNet.Models;
@@ -11,7 +12,7 @@ using NUnit.Framework;
 
 namespace Site.Core.Integration.Tests.Helpers
 {
-    public class SqlServerContainer
+    public static class SqlServerContainer
     {
         public static async Task StartAsync()
         {
@@ -21,22 +22,15 @@ namespace Site.Core.Integration.Tests.Helpers
             var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
             var sqlServer = containers.FirstOrDefault(x => x.Names.Any(x => x.Contains(settings.SqlServerContainerName)));
             if (sqlServer is not null)
-            {
-                await client.Containers.RemoveContainerAsync(sqlServer.ID,
-                    new ContainerRemoveParameters {Force = true});
-            }
+                await client.Containers.RemoveContainerAsync(sqlServer.ID, new ContainerRemoveParameters {Force = true});
 
-            var usingPorts = containers.Where(c => c.Ports.Any(x => x.PublicPort == settings.SqlServerPort)).ToList();
+            var usingPorts = containers.Where(c => c.Ports.Any(x => x.PublicPort == settings.SqlServerPort) && c.ID != sqlServer?.ID).ToList();
             if (usingPorts.Any())
             {
                 foreach (var containersUsingPort in usingPorts)
-                {
-                    await client.Containers.RemoveContainerAsync(containersUsingPort.ID,
-                        new ContainerRemoveParameters {Force = true});
-                }
+                    await client.Containers.RemoveContainerAsync(containersUsingPort.ID, new ContainerRemoveParameters {Force = true});
             }
-
-            //await PullImage(client, settings.SqlServerImage);
+            
             await StartContainer(client, settings);
         }
 
@@ -63,9 +57,9 @@ namespace Site.Core.Integration.Tests.Helpers
                     }
                 },
             });
-
+            
             await client.Containers.StartContainerAsync(response.ID, null);
-
+            
         }
 
         private static async Task PullImage(DockerClient client,string imageName)

@@ -26,9 +26,19 @@ namespace Site.Core.Integration.Tests.Helpers
         public int SqlServerPort { get; set; }
 
         public string SqlServerContainerName { get; set; }
+        
         public string SqlServerPassword { get; set; }
 
+        public string SqlServerUser { get; set; }
+
+        public string SqlServer { get; set; }
+
+        public string DbServerConnectionString => $@"Server={SqlServer};User Id={SqlServerUser};Password={SqlServerPassword}";
+        
+        public string DbConnectionString => $@"Server={SqlServer};Database={SqlServerDatabase};User Id={SqlServerUser};Password={SqlServerPassword}";
+        public string SqlServerDatabase { get; set; }
+
         #endregion
-           
+
     }
 }

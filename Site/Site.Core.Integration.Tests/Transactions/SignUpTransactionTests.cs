@@ -87,7 +87,7 @@ namespace Site.Core.Integration.Tests.Transactions
             var johnsToken = await TokensHelper.GetTokenForParticipantAsync(john.Id);
             
             Assert.AreEqual(participant.Token.Value, johnsToken.Value);
-            Assert.AreEqual(participant.Token.Value, participant.Token.CreatedAt.ToString());
+            Assert.AreEqual(participant.Token.CreatedAt.ToString(), participant.Token.CreatedAt.ToString());
             Assert.AreEqual(participant.Token.IsValid, participant.Token.IsValid);
             Assert.AreEqual(participant.Token.TeamId, team.Id);
             
@@ -104,11 +104,9 @@ namespace Site.Core.Integration.Tests.Transactions
             var marysToken = await TokensHelper.GetTokenForParticipantAsync(mary.Id);
             
             Assert.AreEqual(participant.Token.Value, marysToken.Value);
-            Assert.AreEqual(participant.Token.Value, participant.Token.CreatedAt.ToString());
+            Assert.AreEqual(participant.Token.CreatedAt.ToString(), participant.Token.CreatedAt.ToString());
             Assert.AreEqual(participant.Token.IsValid, participant.Token.IsValid);
             Assert.AreEqual(participant.Token.TeamId, team.Id);
-            
-
         }
     }
 }

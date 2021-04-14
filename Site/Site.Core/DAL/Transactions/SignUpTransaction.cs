@@ -14,8 +14,8 @@ namespace Site.Core.DAL.Transactions
         private const string InsertTeamSql = @"INSERT INTO Teams (Name, CreatedAt) VALUES (@Name, @CreatedAt); 
                                                 SELECT SCOPE_IDENTITY();";
         
-        private const string InsertParticipantsSql = @"INSERT INTO Participants (Forename, Surname, Email, TeamId)
-                                                        VALUES (@Forename, @Surname, @Email, @TeamId);
+        private const string InsertParticipantsSql = @"INSERT INTO Participants (Forename, Surname, Email, TeamId, CreatedAt)
+                                                        VALUES (@Forename, @Surname, @Email, @TeamId, @CreatedAt);
                                                         SELECT SCOPE_IDENTITY();";
         
         private const string InsertTokensSql = @"INSERT INTO Tokens (CreatedAt, IsValid, [Value], TeamId, ParticipantId)
