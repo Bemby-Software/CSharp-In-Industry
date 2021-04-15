@@ -1,0 +1,43 @@
+using System.Linq;
+using System.Threading.Tasks;
+using Site.Core.DAL.Repositorys;
+using Site.Core.Entities;
+using Site.Core.Exceptions;
+using Site.Core.Exceptions.Participants;
+using Site.Core.Factories;
+using Site.Core.Helpers;
+
+namespace Site.Core.Services
+{
+    public class TeamService : ITeamService
+    {
+        private readonly ITeamRepository _repository;
+        private readonly ITokenFactory _tokenFactory;
+        private readonly IEmailHelper _emailHelper;
+        private readonly IParticipantService _participantService;
+
+        public TeamService(ITeamRepository repository, ITokenFactory tokenFactory, 
+            IEmailHelper emailHelper, IParticipantService participantService)
+        {
+            _repository = repository;
+            _tokenFactory = tokenFactory;
+            _emailHelper = emailHelper;
+            _participantService = participantService;
+        }
+        
+        public async Task CreateAsync(Team team)
+        {
+            if (!team.Participants.Any())
+                throw new ParticipantsRequiredException();
+
+            foreach (var participant in team.Participants)
+                await _participantService.ValidateParticipant(participant);
+            
+            team.Participants.ForEach(x => x.Token = _tokenFactory.Create());
+
+            await _repository.CreateTeamsAsync(team);
+
+            await _emailHelper.SendSignedUpEmailsAsync(team.Participants);
+        }
+    }
+}

@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace Site.Core.DAL
+namespace Site.Core.DAL.Factories
 {
     public interface IDbFactory
     {

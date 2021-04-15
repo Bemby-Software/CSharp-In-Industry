@@ -5,6 +5,11 @@ namespace Site.Core.Entities
 {
     public class Team
     {
+        public Team()
+        {
+            Participants = new List<Participant>();
+        }
+        
         public int Id { get; set; }
 
         public string Name { get; set; }

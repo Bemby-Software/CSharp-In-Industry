@@ -2,7 +2,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Site.Core.Configuration;
 
-namespace Site.Core.DAL
+namespace Site.Core.DAL.Factories
 {
     public class DbFactory : IDbFactory
     {

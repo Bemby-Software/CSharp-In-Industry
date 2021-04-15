@@ -8,6 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Site.Core;
+using Site.Core.DAL.Health;
+using Site.Web.Filters;
 
 namespace Site.Web
 {
@@ -17,6 +20,10 @@ namespace Site.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCore();
+            services.AddHealthChecks()
+                .AddCheck<DbHealthCheck>("Database");
+            services.AddControllers(config => config.Filters.Add(new CoreExceptionFilter()));
             services.AddSpaStaticFiles(config => config.RootPath = "comp-site/dist");
         }
 
@@ -38,6 +45,8 @@ namespace Site.Web
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
+                endpoints.MapControllers();
             });
             
             app.UseSpa(spa =>
