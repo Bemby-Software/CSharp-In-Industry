@@ -1,11 +1,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
+using Dapper.Contrib.Extensions;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Microsoft.VisualStudio.TestPlatform.Utilities;
+using NUnit.Framework;
 using Site.Core.Entities;
+using Site.Core.Integration.Tests.Models;
 
 namespace Site.Core.Integration.Tests.Helpers
 {
-    public class ParticipantsHelper
+    public static class ParticipantsHelper
     {
         public static async Task<List<Participant>> GetParticipantsInTeamAsync(int teamId)
         {
@@ -14,5 +20,8 @@ namespace Site.Core.Integration.Tests.Helpers
 
             return participants.ToList();
         }
+
+        public static async Task AddParticipantAsync(TestParticipant participant) 
+            => await TestStartup.TestConnection.InsertAsync(participant);
     }
 }

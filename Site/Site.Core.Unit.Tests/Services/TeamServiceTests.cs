@@ -18,12 +18,14 @@ namespace Site.Core.Unit.Tests.Services
         private Mock<ITeamRepository> _teamRepository;
         private Mock<ITokenFactory> _tokenFactory;
         private Mock<IEmailHelper> _emailHelper;
+        private Mock<IParticipantService> _participantsService;
 
         public override void Setup()
         {
             _teamRepository = Mocker.GetMock<ITeamRepository>();
             _tokenFactory = Mocker.GetMock<ITokenFactory>();
             _emailHelper = Mocker.GetMock<IEmailHelper>();
+            _participantsService = Mocker.GetMock<IParticipantService>();
         }
 
         [Test]
@@ -45,12 +47,98 @@ namespace Site.Core.Unit.Tests.Services
             //Arrange
             var sut = CreateSut();
 
-            var team = new Team();
-            team.Participants = new List<Participant>();
+            var team = new Team
+            {
+                Participants = new List<Participant>
+                {
+                    new Participant(),
+                    new Participant(),
+                    new Participant()
+                }
+            };
+
+            _tokenFactory.Setup(o => o.Create()).Returns(new Token());
 
             //Act
+            await sut.CreateAsync(team);
 
             //Assert
+            foreach (var teamParticipant in team.Participants) 
+                Assert.IsNotNull(teamParticipant.Token);
         }
+        
+        [Test]
+        public async Task CreateAsync_ParticipantsInTeam_ValidatesAllParticipants()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new Team
+            {
+                Participants = new List<Participant>
+                {
+                    new Participant(),
+                    new Participant(),
+                    new Participant()
+                }
+            };
+
+            //Act
+            await sut.CreateAsync(team);
+
+            //Assert
+            foreach (var participant in team.Participants)
+            {
+                _participantsService.Verify(o => o.ValidateParticipant(participant));
+            }
+        }
+        
+        [Test]
+        public async Task CreateAsync_ParticipantsInTeam_CreatesTeam()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new Team
+            {
+                Participants = new List<Participant>
+                {
+                    new Participant(),
+                    new Participant(),
+                    new Participant()
+                }
+            };
+
+            //Act
+            await sut.CreateAsync(team);
+
+            //Assert
+            _teamRepository.Verify(o => o.CreateTeamsAsync(team));
+        }
+        
+        [Test]
+        public async Task CreateAsync_ParticipantsInTeam_SendsEmailsToParticipants()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new Team
+            {
+                Participants = new List<Participant>
+                {
+                    new Participant(),
+                    new Participant(),
+                    new Participant()
+                }
+            };
+
+            //Act
+            await sut.CreateAsync(team);
+
+            //Assert
+            _emailHelper.Verify(o => o.SendSignedUpEmailsAsync(team.Participants));
+        }
+        
+        
     }
 }

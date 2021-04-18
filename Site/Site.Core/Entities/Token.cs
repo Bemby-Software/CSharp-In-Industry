@@ -1,7 +1,9 @@
 using System;
+using Dapper.Contrib.Extensions;
 
 namespace Site.Core.Entities
 {
+    [Table("Tokens")]
     public class Token
     {
         public int Id { get; set; }

@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using Dapper.Contrib.Extensions;
+using Site.Core.Entities;
 
-namespace Site.Core.Entities
+namespace Site.Core.Integration.Tests.Models
 {
-    public class Team
+    [Table("Teams")]
+    public class TestTeam
     {
-        public Team()
+        public TestTeam()
         {
-            Participants = new List<Participant>();
+            Name = "Test Team";
+            CreatedAt = DateTime.Now;
         }
         
         public int Id { get; set; }
@@ -17,6 +20,5 @@ namespace Site.Core.Entities
 
         public DateTime CreatedAt { get; set; }
         
-        public List<Participant> Participants { get; set; }
     }
 }

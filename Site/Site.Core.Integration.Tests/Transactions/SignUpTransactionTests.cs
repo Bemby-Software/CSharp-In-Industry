@@ -15,7 +15,7 @@ namespace Site.Core.Integration.Tests.Transactions
     {
         public override void Setup()
         {
-            Mocker.Use<IDbConnection>(Startup.TestConnection);
+            Mocker.Use<IDbConnection>(TestStartup.TestConnection);
         }
 
         [Test]

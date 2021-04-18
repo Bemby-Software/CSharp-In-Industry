@@ -17,7 +17,7 @@ using Timer = System.Threading.Timer;
 namespace Site.Core.Integration.Tests
 {
     [SetUpFixture]
-    public class Startup
+    public class TestStartup
     {
 
 

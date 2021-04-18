@@ -14,7 +14,7 @@ namespace Site.Core.Integration.Tests.Helpers
     {
         public static async Task<IEnumerable<T>> Query<T>(string sql)
         {
-            var connection = Startup.TestConnection;
+            var connection = TestStartup.TestConnection;
             await connection.OpenAsync();
 
             try
@@ -26,20 +26,11 @@ namespace Site.Core.Integration.Tests.Helpers
                 await connection.CloseAsync();
             }
         }
-        
+
         public static async Task<IEnumerable<T>> Query<T>(string sql, object param)
         {
-            var connection = Startup.TestConnection;
-            await connection.OpenAsync();
-
-            try
-            {
-                return await connection.QueryAsync<T>(sql, param);
-            }
-            finally
-            {
-                await connection.CloseAsync();
-            }
+            var connection = TestStartup.TestConnection;
+            return await connection.QueryAsync<T>(sql, param);
         }
 
         public static async Task EnsureStarted(string connectionString, TimeSpan timeout)
