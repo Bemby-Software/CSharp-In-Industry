@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Site.Web.Acceptance</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.5" />
+      <PackageReference Include="SpecFlow.xUnit" Version="3.7.38" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\Site.Web\Site.Web.csproj" />
+    </ItemGroup>
+
+</Project>

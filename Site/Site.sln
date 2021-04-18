@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Integration.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Unit.Tests", "Site.Core.Unit.Tests\Site.Core.Unit.Tests.csproj", "{26C76524-F184-4ABE-A85E-08AE1C02D54C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web.Acceptance", "Site.Web.Acceptance\Site.Web.Acceptance.csproj", "{BEBF7964-7FEA-4140-ACB8-69FD2FDEAF15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web.Api.Acceptance.Tests", "Site.Web.Api.Acceptance.Tests\Site.Web.Api.Acceptance.Tests.csproj", "{BEBF7964-7FEA-4140-ACB8-69FD2FDEAF15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
