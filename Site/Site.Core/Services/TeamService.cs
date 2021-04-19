@@ -4,6 +4,7 @@ using Site.Core.DAL.Repositorys;
 using Site.Core.Entities;
 using Site.Core.Exceptions;
 using Site.Core.Exceptions.Participants;
+using Site.Core.Exceptions.Teams;
 using Site.Core.Factories;
 using Site.Core.Helpers;
 
@@ -27,7 +28,13 @@ namespace Site.Core.Services
         
         public async Task CreateAsync(Team team)
         {
-            if (!team.Participants.Any())
+            if (team.Name.IsEmpty())
+                throw new TeamNameRequiredException();
+
+            if (await _repository.IsTeamNameInUseAsync(team.Name))
+                throw new TeamNameInUseException();
+            
+            if (team.Participants.IsNullOrEmpty())
                 throw new ParticipantsRequiredException();
 
             foreach (var participant in team.Participants)

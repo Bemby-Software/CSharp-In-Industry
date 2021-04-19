@@ -2,7 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Site.Core.Integration.Tests
+namespace Site.Testing.Common
 { 
     public static class TaskExtensions
     {

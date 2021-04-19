@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Site.Core.DAL;
 using Site.Core.DAL.Factories;
@@ -21,10 +24,14 @@ namespace Site.Core
             services.AddSingleton<ITokenHelper, TokenHelper>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
             services.AddScoped<ITeamService, TeamService>();
+            services.AddScoped<IParticipantService, ParticipantService>();
+            services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddScoped<IEmailHelper, EmailHelper>();
             return services;
         }
 
         public static bool IsEmpty(this string value) => string.IsNullOrWhiteSpace(value);
+
+        public static bool IsNullOrEmpty<T>(this List<T> enumerable) => enumerable is null || !enumerable.Any();
     }
 }

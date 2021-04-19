@@ -7,6 +7,6 @@ namespace Site.Core.DTO.Requests
     {
         public string Name { get; set; }
         
-        public List<CreateParticipantDto> Participants;
+        public List<CreateParticipantDto> Participants { get; set; }
     }
 }

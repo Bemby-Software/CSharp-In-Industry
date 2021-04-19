@@ -2,9 +2,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Site.Core.Entities;
 
-namespace Site.Core.Integration.Tests.Helpers
+namespace Site.Testing.Common.Helpers
 {
-    public class TokensHelper
+    public static class TokensHelper
     {
         public static async Task<Token> GetTokenForParticipantAsync(int participantId)
         {

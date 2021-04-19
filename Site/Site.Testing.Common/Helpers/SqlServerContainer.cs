@@ -1,16 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
 using System.Threading.Tasks;
 using Docker.DotNet;
 using Docker.DotNet.Models;
-using Moq;
-using NUnit.Framework;
 
-namespace Site.Core.Integration.Tests.Helpers
+namespace Site.Testing.Common.Helpers
 {
     public static class SqlServerContainer
     {

@@ -1,20 +1,21 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading;
+using System.IO;
 using System.Threading.Tasks;
 using Dapper;
-using Docker.DotNet.Models;
-using NUnit.Framework;
 
-namespace Site.Core.Integration.Tests.Helpers
+namespace Site.Testing.Common.Helpers
 {
-    public class DbHelper
+    public static class DbHelper
     {
+        
+        public static SqlConnection TestConnection => new(
+            TestConfiguration.GetConfiguration().DbConnectionString);
+        
         public static async Task<IEnumerable<T>> Query<T>(string sql)
         {
-            var connection = TestStartup.TestConnection;
+            var connection = TestConnection as SqlConnection;
             await connection.OpenAsync();
 
             try
@@ -29,7 +30,7 @@ namespace Site.Core.Integration.Tests.Helpers
 
         public static async Task<IEnumerable<T>> Query<T>(string sql, object param)
         {
-            var connection = TestStartup.TestConnection;
+            var connection = TestConnection;
             return await connection.QueryAsync<T>(sql, param);
         }
 
@@ -61,6 +62,33 @@ namespace Site.Core.Integration.Tests.Helpers
 
             await task.TimeoutAfter(timeout);
 
+        }
+        
+        public static async Task CreateTestDatabase(TestConfiguration settings)
+        {
+            var connection = new SqlConnection(settings.DbServerConnectionString);
+            await connection.OpenAsync();
+            var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = $@"CREATE DATABASE {settings.SqlServerDatabase}";
+                command.ExecuteNonQuery();
+
+                foreach (var file in Directory.GetFiles("db"))
+                {
+                    if (Path.GetExtension(file) == ".sql")
+                    {
+                        var contents = await File.ReadAllTextAsync(file);
+                        command.CommandText = $"USE {settings.SqlServerDatabase}; {contents}";
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
         }
         
         

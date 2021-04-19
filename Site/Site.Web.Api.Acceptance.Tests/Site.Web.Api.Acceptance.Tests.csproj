@@ -6,13 +6,26 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="5.10.3" />
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.5" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+      <PackageReference Include="SpecFlow" Version="3.7.38" />
+      <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.7.38" />
       <PackageReference Include="SpecFlow.xUnit" Version="3.7.38" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\Site.Testing.Common\Site.Testing.Common.csproj" />
       <ProjectReference Include="..\Site.Web\Site.Web.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="appsettings.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
     </ItemGroup>
 
 </Project>

@@ -1,14 +1,17 @@
+using System.Data.SqlClient;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 
-namespace Site.Core.Integration.Tests.Helpers
+namespace Site.Testing.Common.Helpers
 {
     public class TestConfiguration
     {
 
         public static TestConfiguration GetConfiguration()
         {
-            var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+            var current = Directory.GetCurrentDirectory();
+            var config = new ConfigurationBuilder()
+                .SetBasePath(current)
                 .AddJsonFile("appsettings.json", false)
                 .Build();
 

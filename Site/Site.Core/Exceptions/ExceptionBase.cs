@@ -7,5 +7,6 @@ namespace Site.Core.Exceptions
         public abstract string Code { get; }
         
         public abstract string Reason { get; }
+        public bool IsUserFriendly => true;
     }
 }

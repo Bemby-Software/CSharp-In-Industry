@@ -1,3 +1,4 @@
+using System;
 using Site.Core.DTO.Common;
 using Site.Core.Entities;
 
@@ -10,6 +11,7 @@ namespace Site.Core.Conversions
             Email = dto.Email,
             Forename = dto.Forename,
             Surname = dto.Surname,
+            CreatedAt = DateTime.Now
         };
     }
 }

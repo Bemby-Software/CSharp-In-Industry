@@ -5,7 +5,7 @@ namespace Site.Core.Conversions
 {
     public static class ExceptionBaseConversions
     {
-        public static ErrorDto AsDto(this ExceptionBase exceptionBase) => new ErrorDto
-            {Code = exceptionBase.Code, Reason = exceptionBase.Reason};
+        public static ErrorDto AsDto(this ExceptionBase exceptionBase)
+            => new() {Code = exceptionBase.Code, Reason = exceptionBase.Reason, IsUserFriendly = exceptionBase.IsUserFriendly};
     }
 }

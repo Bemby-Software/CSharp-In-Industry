@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using Dapper.Contrib.Extensions;
-using Site.Core.Entities;
 
-namespace Site.Core.Integration.Tests.Models
+namespace Site.Testing.Common.Models
 {
     [Table("Teams")]
     public class TestTeam

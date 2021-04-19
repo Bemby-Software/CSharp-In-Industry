@@ -5,5 +5,7 @@ namespace Site.Core.DTO.Common
         public string Code { get; set; }
 
         public string Reason { get; set; }
+
+        public bool IsUserFriendly { get; set; }
     }
 }   

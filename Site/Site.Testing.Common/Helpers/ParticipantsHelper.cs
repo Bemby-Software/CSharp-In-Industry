@@ -1,15 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper;
 using Dapper.Contrib.Extensions;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using NUnit.Framework;
+using Site.Core.DAL.Health;
 using Site.Core.Entities;
-using Site.Core.Integration.Tests.Models;
+using Site.Testing.Common.Models;
 
-namespace Site.Core.Integration.Tests.Helpers
+namespace Site.Testing.Common.Helpers
 {
     public static class ParticipantsHelper
     {
@@ -22,6 +19,6 @@ namespace Site.Core.Integration.Tests.Helpers
         }
 
         public static async Task AddParticipantAsync(TestParticipant participant) 
-            => await TestStartup.TestConnection.InsertAsync(participant);
+            => await DbHelper.TestConnection.InsertAsync(participant);
     }
 }

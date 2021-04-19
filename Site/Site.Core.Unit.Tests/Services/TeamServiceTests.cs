@@ -7,6 +7,7 @@ using Site.Core.DAL.Repositorys;
 using Site.Core.Entities;
 using Site.Core.Exceptions;
 using Site.Core.Exceptions.Participants;
+using Site.Core.Exceptions.Teams;
 using Site.Core.Factories;
 using Site.Core.Helpers;
 using Site.Core.Services;
@@ -27,6 +28,38 @@ namespace Site.Core.Unit.Tests.Services
             _emailHelper = Mocker.GetMock<IEmailHelper>();
             _participantsService = Mocker.GetMock<IParticipantService>();
         }
+        
+        [Test]
+        public void CreateAsync_EmptyTeamName_ThrowsTeamNameRequiredRequired()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new Team();
+
+            //Act
+            //Assert
+            Assert.ThrowsAsync<TeamNameRequiredException>(() => sut.CreateAsync(team));
+        }
+        
+        [Test]
+        public void CreateAsync_TeamNameInUse_ThrowsTeamNameInUse()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new Team()
+            {
+                Name = "Test Team"
+            };
+
+            _teamRepository.Setup(o => o.IsTeamNameInUseAsync(team.Name))
+                .ReturnsAsync(true);
+
+            //Act
+            //Assert
+            Assert.ThrowsAsync<TeamNameInUseException>(() => sut.CreateAsync(team));
+        }
 
         [Test]
         public void CreateAsync_NoParticipants_ThrowsParticipantsRequired()
@@ -34,7 +67,10 @@ namespace Site.Core.Unit.Tests.Services
             //Arrange
             var sut = CreateSut();
 
-            var team = new Team();
+            var team = new Team()
+            {
+                Name = "Test Name"
+            };
 
             //Act
             //Assert
@@ -49,6 +85,7 @@ namespace Site.Core.Unit.Tests.Services
 
             var team = new Team
             {
+                Name = "Test Name",
                 Participants = new List<Participant>
                 {
                     new Participant(),
@@ -75,6 +112,7 @@ namespace Site.Core.Unit.Tests.Services
 
             var team = new Team
             {
+                Name = "Test Name",
                 Participants = new List<Participant>
                 {
                     new Participant(),
@@ -101,6 +139,7 @@ namespace Site.Core.Unit.Tests.Services
 
             var team = new Team
             {
+                Name = "Test Name",
                 Participants = new List<Participant>
                 {
                     new Participant(),
@@ -124,6 +163,7 @@ namespace Site.Core.Unit.Tests.Services
 
             var team = new Team
             {
+                Name = "Test Name",
                 Participants = new List<Participant>
                 {
                     new Participant(),

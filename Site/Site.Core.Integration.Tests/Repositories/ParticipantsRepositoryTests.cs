@@ -1,13 +1,11 @@
 using System.Data;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
 using NUnit.Framework;
 using Nytte.Testing;
 using Site.Core.DAL.Repositorys;
-using Site.Core.Entities;
-using Site.Core.Integration.Tests.Helpers;
-using Site.Core.Integration.Tests.Models;
+using Site.Testing.Common.Helpers;
+using Site.Testing.Common.Models;
 
 namespace Site.Core.Integration.Tests.Repositories
 {
@@ -15,7 +13,7 @@ namespace Site.Core.Integration.Tests.Repositories
     {
         public override void Setup()
         {
-            Mocker.Use<IDbConnection>(TestStartup.TestConnection);
+            Mocker.Use<IDbConnection>(DbHelper.TestConnection);
         }
 
         [Test]
@@ -24,7 +22,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
 
-            var teamId = await TestStartup.TestConnection.InsertAsync(new TestTeam());
+            var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
             var participant = new TestParticipant(teamId);
             await ParticipantsHelper.AddParticipantAsync(participant);
@@ -42,7 +40,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
 
-            var teamId = await TestStartup.TestConnection.InsertAsync(new TestTeam());
+            var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
             var participant = new TestParticipant(teamId);
             await ParticipantsHelper.AddParticipantAsync(participant);

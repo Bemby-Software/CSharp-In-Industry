@@ -1,8 +1,7 @@
 using System;
 using Dapper.Contrib.Extensions;
-using Site.Core.Entities;
 
-namespace Site.Core.Integration.Tests.Models
+namespace Site.Testing.Common.Models
 {
     [Table("Participants")]
     public class TestParticipant

@@ -7,7 +7,7 @@ using NUnit.Framework;
 using Nytte.Testing;
 using Site.Core.DAL.Transactions;
 using Site.Core.Entities;
-using Site.Core.Integration.Tests.Helpers;
+using Site.Testing.Common.Helpers;
 
 namespace Site.Core.Integration.Tests.Transactions
 {
@@ -15,7 +15,7 @@ namespace Site.Core.Integration.Tests.Transactions
     {
         public override void Setup()
         {
-            Mocker.Use<IDbConnection>(TestStartup.TestConnection);
+            Mocker.Use<IDbConnection>(DbHelper.TestConnection);
         }
 
         [Test]
@@ -27,7 +27,7 @@ namespace Site.Core.Integration.Tests.Transactions
             var newTeam = new Team()
             {
                 CreatedAt = DateTime.Now,
-                Name = "Test Team",
+                Name = "Sign Up Test Team",
                 Participants = new List<Participant>
                 {
                     new Participant
