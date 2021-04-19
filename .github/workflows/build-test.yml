@@ -20,8 +20,16 @@ jobs:
       - name: Build
         run: dotnet build Site/Site.sln -c Release
         
-      - name: Test
-        run: dotnet test Site/Site.sln -c Release
+      - name: Run Unit Tests
+        run: dotnet test Site/tests/units
+        
+      - name: Run Integration Tests
+        run: dotnet test Site/tests/intergration
+        
+      - name: Run Acceptance Tests
+        run: dotnet test Site/tests/units
+        
+      
         
       
 
