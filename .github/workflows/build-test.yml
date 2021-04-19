@@ -23,6 +23,9 @@ jobs:
       - name: Register Recursive Test Searcher
         run: chmod +x Site/scripts/shell/test-dir.sh
         
+      - name: Pull Sql Server Image
+        run: docker pull mcr.microsoft.com/mssql/server:2019-latest
+        
       - name: Run Unit Tests
         run: Site/scripts/shell/test-dir.sh Site/tests/units/
         
