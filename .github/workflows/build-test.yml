@@ -20,14 +20,17 @@ jobs:
       - name: Build
         run: dotnet build Site/Site.sln -c Release
         
+      - name: Register Recursive Test Searcher
+        run: chmod +x Site/scripts/shell/test-dir.sh
+        
       - name: Run Unit Tests
-        run: dotnet test Site/tests/units
+        run: Site/scripts/shell/test-dir.sh Site/tests/units/
         
       - name: Run Integration Tests
-        run: dotnet test Site/tests/intergration
+        run: Site/scripts/shell/test-dir.sh Site/tests/intergration/
         
       - name: Run Acceptance Tests
-        run: dotnet test Site/tests/units
+        run: Site/scripts/shell/test-dir.sh Site/tests/acceptance/
         
       
         
