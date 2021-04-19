@@ -15,9 +15,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Site.Core\Site.Core.csproj" />
-      <ProjectReference Include="..\Site.Testing.Common\Site.Testing.Common.csproj" />
-      <ProjectReference Include="..\Site.Web\Site.Web.csproj" />
+      <ProjectReference Include="..\..\..\src\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\..\..\src\Site.Web\Site.Web.csproj" />
+      <ProjectReference Include="..\..\Site.Testing.Common\Site.Testing.Common.csproj" />
     </ItemGroup>
 
     <ItemGroup>

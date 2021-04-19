@@ -19,21 +19,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\db\scripts\1.sql">
-        <Link>db/1.sql</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\Site.Core\Site.Core.csproj" />
-      <ProjectReference Include="..\Site.Testing.Common\Site.Testing.Common.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\..\Site.Testing.Common\Site.Testing.Common.csproj" />
     </ItemGroup>
 
 </Project>

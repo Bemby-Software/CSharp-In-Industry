@@ -23,7 +23,7 @@ namespace Site.Core.DAL.Repositorys
 
         public async Task<bool> IsTeamNameInUseAsync(string teamName)
         {
-            var team = await _dbConnection.QuerySingleOrDefaultAsync<Team>("SELECT * FROM Teams WHERE Name = @Name", new {Name = teamName});
+            var team = await _dbConnection.QueryFirstOrDefaultAsync<Team>("SELECT * FROM Teams WHERE Name = @Name", new {Name = teamName});
             return team is not null;
         }
     }

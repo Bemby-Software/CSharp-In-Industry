@@ -40,8 +40,9 @@ namespace Site.Testing.Common.Helpers
         
         public string DbConnectionString => $@"Server={SqlServer};Database={SqlServerDatabase};User Id={SqlServerUser};Password={SqlServerPassword}";
         public string SqlServerDatabase { get; set; }
+        public string RelativeDatabaseScriptsDirectoryLocation { get; set; }
 
         #endregion
-
+    
     }
 }

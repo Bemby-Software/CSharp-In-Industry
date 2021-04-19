@@ -75,7 +75,7 @@ namespace Site.Testing.Common.Helpers
                 command.CommandText = $@"CREATE DATABASE {settings.SqlServerDatabase}";
                 command.ExecuteNonQuery();
 
-                foreach (var file in Directory.GetFiles("db"))
+                foreach (var file in Directory.GetFiles(settings.RelativeDatabaseScriptsDirectoryLocation))
                 {
                     if (Path.GetExtension(file) == ".sql")
                     {

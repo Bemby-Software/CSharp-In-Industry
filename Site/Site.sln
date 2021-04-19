@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core", "Site.Core\Site.Core.csproj", "{57E5FA8E-F6D8-4843-97F9-4E8D0850B3EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core", "src\Site.Core\Site.Core.csproj", "{57E5FA8E-F6D8-4843-97F9-4E8D0850B3EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web", "Site.Web\Site.Web.csproj", "{98A03320-06A6-4848-B805-C0860831DF81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web", "src\Site.Web\Site.Web.csproj", "{98A03320-06A6-4848-B805-C0860831DF81}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{0454131E-B96B-415A-BB66-19380D7BF66B}"
 EndProject
@@ -13,13 +13,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "db", "db", "{68A6F905-EE60-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{F3BA4ED1-A406-4B41-A5BF-E19CCF7B21C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Integration.Tests", "Site.Core.Integration.Tests\Site.Core.Integration.Tests.csproj", "{96F9A8C4-7510-4168-8E19-07F6C63FB20B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Integration.Tests", "tests\intergration\Site.Core.Integration.Tests\Site.Core.Integration.Tests.csproj", "{96F9A8C4-7510-4168-8E19-07F6C63FB20B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Unit.Tests", "Site.Core.Unit.Tests\Site.Core.Unit.Tests.csproj", "{26C76524-F184-4ABE-A85E-08AE1C02D54C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Core.Unit.Tests", "tests\units\Site.Core.Unit.Tests\Site.Core.Unit.Tests.csproj", "{26C76524-F184-4ABE-A85E-08AE1C02D54C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web.Api.Acceptance.Tests", "Site.Web.Api.Acceptance.Tests\Site.Web.Api.Acceptance.Tests.csproj", "{BEBF7964-7FEA-4140-ACB8-69FD2FDEAF15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Web.Api.Acceptance.Tests", "tests\acceptance\Site.Web.Api.Acceptance.Tests\Site.Web.Api.Acceptance.Tests.csproj", "{BEBF7964-7FEA-4140-ACB8-69FD2FDEAF15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Testing.Common", "Site.Testing.Common\Site.Testing.Common.csproj", "{EF17778B-FA75-413C-A88E-22FCB2146D12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Site.Testing.Common", "tests\Site.Testing.Common\Site.Testing.Common.csproj", "{EF17778B-FA75-413C-A88E-22FCB2146D12}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "testing", "testing", "{EE70BE86-C342-4642-84E0-61314F444F53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,5 +123,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F3BA4ED1-A406-4B41-A5BF-E19CCF7B21C9} = {68A6F905-EE60-4B70-92CA-EB0F432923A4}
+		{26C76524-F184-4ABE-A85E-08AE1C02D54C} = {EE70BE86-C342-4642-84E0-61314F444F53}
+		{EF17778B-FA75-413C-A88E-22FCB2146D12} = {EE70BE86-C342-4642-84E0-61314F444F53}
+		{96F9A8C4-7510-4168-8E19-07F6C63FB20B} = {EE70BE86-C342-4642-84E0-61314F444F53}
+		{BEBF7964-7FEA-4140-ACB8-69FD2FDEAF15} = {EE70BE86-C342-4642-84E0-61314F444F53}
 	EndGlobalSection
 EndGlobal
