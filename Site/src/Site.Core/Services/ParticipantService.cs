@@ -33,5 +33,8 @@ namespace Site.Core.Services
                 throw new EmailInUseException();
 
         }
+
+        public Task<bool> IsEmailInUseAsync(string email) 
+            => _participantRepository.IsEmailInUseAsync(email);
     }
 }

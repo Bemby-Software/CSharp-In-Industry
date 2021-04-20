@@ -178,6 +178,24 @@ namespace Site.Core.Unit.Tests.Services
             //Assert
             _emailHelper.Verify(o => o.SendSignedUpEmailsAsync(team.Participants));
         }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task IsTeamNameInUseAsync_Value_ReturnsCorrectResult(bool isInUse)
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _teamRepository.Setup(o => o.IsTeamNameInUseAsync(It.IsAny<string>()))
+                .ReturnsAsync(isInUse);
+
+            //Act
+            var result = await sut.IsTeamNameInUseAsync("test");
+
+            //Assert
+            Assert.AreEqual(isInUse, result);
+        }
+        
         
         
     }

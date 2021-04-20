@@ -49,7 +49,7 @@ namespace Site.Testing.Common.Helpers
                         await connection.OpenAsync();
                         break;
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         // ignored
                     }

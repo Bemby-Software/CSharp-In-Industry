@@ -6,5 +6,6 @@ namespace Site.Core.Services
     public interface ITeamService
     {
         Task CreateAsync(Team team);
+        Task<bool> IsTeamNameInUseAsync(string name);
     }
 }

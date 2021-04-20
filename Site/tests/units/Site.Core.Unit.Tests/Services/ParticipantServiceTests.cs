@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Nytte.Testing;
 using Site.Core.DAL.Repositorys;
 using Site.Core.Entities;
@@ -119,6 +120,23 @@ namespace Site.Core.Unit.Tests.Services
             //Act
             //Assert
             await sut.ValidateParticipant(participant);
+        }
+        
+        [TestCase(false)]
+        [TestCase(true)]
+        public async Task IsEmailInUseAsync_Value_ReturnsCorrectResult(bool isInUse)
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _participantsRepository.Setup(o => o.IsEmailInUseAsync(It.IsAny<string>()))
+                .ReturnsAsync(isInUse);
+
+            //Act
+            var result = await sut.IsEmailInUseAsync("test@test.com");
+
+            //Assert
+            Assert.AreEqual(isInUse, result);
         }
     }   
 }

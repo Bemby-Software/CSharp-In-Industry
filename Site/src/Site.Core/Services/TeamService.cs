@@ -46,5 +46,8 @@ namespace Site.Core.Services
 
             await _emailHelper.SendSignedUpEmailsAsync(team.Participants);
         }
+
+        public Task<bool> IsTeamNameInUseAsync(string name) 
+            => _repository.IsTeamNameInUseAsync(name);
     }
 }
