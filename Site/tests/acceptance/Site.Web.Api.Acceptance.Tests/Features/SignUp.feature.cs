@@ -574,6 +574,12 @@ this.ScenarioInitialize(scenarioInfo);
 #line 93
     testRunner.Then("a ok response is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
+#line 94
+    testRunner.And("the tokens should have been sent to the participants", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 95
+    testRunner.And("the records should reside in the database", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }

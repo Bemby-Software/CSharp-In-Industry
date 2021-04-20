@@ -11,6 +11,7 @@ namespace Site.Web.Acceptance
     {
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
+            builder.UseEnvironment("AcceptanceTesting");
             builder.ConfigureTestServices(services =>
             {
                 var config = new SiteConfiguration()
