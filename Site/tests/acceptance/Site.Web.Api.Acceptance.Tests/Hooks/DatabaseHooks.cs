@@ -20,7 +20,7 @@ namespace Site.Web.Acceptance.Hooks
         }
 
         [BeforeScenario]
-        public static async Task ResetDatabase()
+        public static async Task ResetDatabase(ScenarioContext scenarioContext)
         {
             await DbHelper.ReCreateDatabase();
         }

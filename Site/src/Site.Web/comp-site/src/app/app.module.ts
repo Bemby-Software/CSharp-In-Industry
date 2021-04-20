@@ -15,6 +15,7 @@ import { SocialListComponent } from './components/common/social-list/social-list
 import { SocialButtonComponent } from './components/common/social-button/social-button.component';
 import { JudgedOnComponent } from './components/landing/judged-on/judged-on.component';
 import { PrimaryTitleComponent } from './components/common/primary-title/primary-title.component';
+import { TeamNameEntryComponent } from './components/landing/team-name-entry/team-name-entry.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PrimaryTitleComponent } from './components/common/primary-title/primary
     SocialListComponent,
     SocialButtonComponent,
     JudgedOnComponent,
-    PrimaryTitleComponent
+    PrimaryTitleComponent,
+    TeamNameEntryComponent
   ],
   imports: [
     BrowserModule,
