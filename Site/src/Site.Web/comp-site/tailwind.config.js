@@ -19,7 +19,8 @@ module.exports = {
         'light-blue': colors.lightBlue,
         blue: colors.blue,
         black: colors.black,
-        white: colors.white
+        white: colors.white,
+        red: colors.red
       },
       extend: {},
     },

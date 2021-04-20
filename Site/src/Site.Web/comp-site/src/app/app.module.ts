@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { SocialButtonComponent } from './components/common/social-button/social-
 import { JudgedOnComponent } from './components/landing/judged-on/judged-on.component';
 import { PrimaryTitleComponent } from './components/common/primary-title/primary-title.component';
 import { TeamNameEntryComponent } from './components/landing/team-name-entry/team-name-entry.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { TeamNameEntryComponent } from './components/landing/team-name-entry/tea
   imports: [
     BrowserModule,
     AppRoutingModule,
-    
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

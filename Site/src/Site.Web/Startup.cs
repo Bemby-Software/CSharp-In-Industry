@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Site.Core;
+using Site.Core.Configuration;
 using Site.Core.DAL.Health;
 using Site.Web.Filters;
 
@@ -23,6 +24,13 @@ namespace Site.Web
             services.AddCore();
             services.AddHealthChecks()
                 .AddCheck<DbHealthCheck>("Database");
+
+            services.AddSingleton<ISiteConfiguration>(new SiteConfiguration
+            {
+                DbConnectionString = "Server=localhost,1434;Database=TestingSiteDb;User Id=SA;Password=-Site123Dev-"
+            });
+
+            
             services.AddControllers(config => config.Filters.Add(new CoreExceptionFilter()));
             services.AddSpaStaticFiles(config => config.RootPath = "comp-site/dist");
         }
