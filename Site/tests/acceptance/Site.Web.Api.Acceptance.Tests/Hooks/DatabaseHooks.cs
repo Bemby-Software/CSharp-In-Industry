@@ -18,6 +18,12 @@ namespace Site.Web.Acceptance.Hooks
             
             await DbHelper.CreateTestDatabase(settings);
         }
+
+        [BeforeScenario]
+        public static async Task ResetDatabase()
+        {
+            await DbHelper.ReCreateDatabase();
+        }
         
     }
 }

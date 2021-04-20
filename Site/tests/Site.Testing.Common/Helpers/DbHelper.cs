@@ -90,8 +90,30 @@ namespace Site.Testing.Common.Helpers
                 await connection.CloseAsync();
             }
         }
-        
-        
-        
+
+        public static async Task ReCreateDatabase()
+        {
+            var settings = TestConfiguration.GetConfiguration();
+            
+            var connection = new SqlConnection(settings.DbServerConnectionString);
+            await connection.OpenAsync();
+            var command = connection.CreateCommand();
+
+            try
+            {
+                command.CommandText = $@"
+                        USE master;
+                        ALTER DATABASE {settings.SqlServerDatabase} SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+                        DROP DATABASE {settings.SqlServerDatabase} ;
+                ";
+                command.ExecuteNonQuery();
+            }
+            finally
+            {
+                await connection.CloseAsync();
+            }
+
+            await CreateTestDatabase(settings);
+        }
     }
 }
