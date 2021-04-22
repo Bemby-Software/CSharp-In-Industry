@@ -16,6 +16,14 @@
   grid-auto-rows: 1fr;
 }
 
+button:focus {
+  outline: none;
+}
+
+input:focus {
+  outline: none;
+}
+
 html {
   font-family: monospace;
   @apply text-gray-600;

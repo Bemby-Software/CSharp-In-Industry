@@ -1,0 +1,38 @@
+<div class="w-full">
+
+    <h4 class="mb-5 border-b border-gray-600 inline-block text-lg font-bold">Participants</h4>
+
+    <table class="w-full rounded-lg text-left table-auto border-r border border-light-blue-400 border-l border-t">
+        <thead class="uppercase border-b border-light-blue-400">
+            <tr>
+                <th class="py-3 px-6">
+                    Name
+                </th>
+                <th class="py-3 px-6">
+                    Email
+                </th>
+                <th class="py-3 px-6">                    
+                </th>
+            </tr>
+        </thead>
+        <tbody *ngIf="participants.length < 1">
+            <tr class="border-b border-light-blue-400">
+                <th class="py-3 px-6">Add Someone above</th>
+                <th class="py-3 px-6"></th>
+                <th class="py-3 px-6">                    
+                </th>
+            </tr>
+        </tbody>
+        <tbody *ngIf="participants.length > 0">
+            <tr class="border-b border-light-blue-400"  *ngFor="let participant of participants">
+                <th class="py-3 px-6">{{participant.forename}} {{[participant.surname]}}</th>
+                <th class="py-3 px-6">{{participant.email}}</th>
+                <th class="py-3 px-6">
+                    <button
+                        (click)="onRemove(participant.email)"
+                        class="sink rounded-full h-7 w-7 flex items-center justify-center bg-red-600 text-white"> &#10005; </button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -18,6 +18,9 @@ import { JudgedOnComponent } from './components/landing/judged-on/judged-on.comp
 import { PrimaryTitleComponent } from './components/common/primary-title/primary-title.component';
 import { TeamNameEntryComponent } from './components/landing/team-name-entry/team-name-entry.component';
 import { FormsModule } from '@angular/forms';
+import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { ParticipantsTableComponent } from './components/signup/participants-table/participants-table.component';
+import { AddParticipantComponent } from './components/signup/add-participant/add-participant.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { FormsModule } from '@angular/forms';
     SocialButtonComponent,
     JudgedOnComponent,
     PrimaryTitleComponent,
-    TeamNameEntryComponent
+    TeamNameEntryComponent,
+    SignUpComponent,
+    ParticipantsTableComponent,
+    AddParticipantComponent
   ],
   imports: [
     BrowserModule,

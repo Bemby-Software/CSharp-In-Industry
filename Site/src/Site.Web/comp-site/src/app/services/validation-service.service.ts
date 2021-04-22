@@ -6,11 +6,15 @@ import { Injectable } from '@angular/core';
 })
 export class ValidationService {
 
+
   constructor(private client: HttpClient) { 
   }
 
-  isTeamNameInUse(name: string) {
-    console.log(name);
+  isTeamNameInUse(name: string) {    
     return this.client.get<boolean>(`api/validation/isTeamNameInUse/${name}`);
+  }
+
+  isEmailInUse(email: string) {
+    return this.client.get<boolean>(`api/validation/isEmailInUse/${email}`);
   }
 }

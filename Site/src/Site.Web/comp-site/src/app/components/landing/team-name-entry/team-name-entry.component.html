@@ -8,9 +8,9 @@
             <div class="p-5 w-full">
                 <label class="uppercase text-lg block ml-2 mb-2" for="teamName">Team Name</label>
                 <input (blur)="onLeaveTeamNameBox()" [(ngModel)]="teamName" placeholder="Cool Coders" id="teamName" class="rounded-full focus:outline-none pl-5 h-10 border bg-gray-200 w-full border-light-blue-400 " />
-                <span *ngIf="!isTeamNameOk" class="text-xs text-red-500 ml-2">Oops! That team name is already taken</span>
+                <span *ngIf="teamNameError" class="text-xs text-red-500 ml-2">{{teamNameError}}</span>
                 <br/>
-                <button class="ml-1 mt-5 rounded-lg bg-light-blue-400 p-2">Next Tell Us Your Team &rarr;</button>
+                <button (click)="onSignUp()" class="sink ml-1 mt-5 rounded-lg focus:outline-none bg-light-blue-400 p-2">Next Tell Us Your Team &rarr;</button>
             </div> 
         </div>
     </div>

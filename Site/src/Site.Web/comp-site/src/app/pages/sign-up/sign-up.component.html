@@ -1,0 +1,24 @@
+<div class="h-screen bg-white w-full flex justify-center items-start">
+    <div class="bg-white shadow-xl rounded-lg border border-light-blue-400 mt-10 mx-20 px-16 py-10 mb-32">
+        <div class="flex items-center justify-center">
+            <h2 class="uppercase mt-2 ml-2 text-3xl">{{team.name}}</h2>
+        </div>
+
+        <div class="my-10">
+            <app-add-participant (onNewParticipant)="addParticipant($event)" (onValidateParticipant)="checkParticipant($event)" [error]="participantError" ></app-add-participant> 
+        </div>
+
+
+        <div class="my-10">
+            <app-participants-table (onParticipantRemoved)="removeParticipant($event)" [participants]="team.participants"></app-participants-table>
+        </div>
+
+
+
+        <div class="flex justify-center items-center">
+            <button class="sink bg-light-blue-400 px-32 py-5 uppercase rounded-full text-lg text-white">Sign Up</button>
+        </div>
+
+    </div>
+
+</div>
