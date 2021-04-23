@@ -1,6 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IParticipant } from 'src/app/models/participant';
 
+const newParticipant = {
+  id: 0,
+  forename: "",
+  surname: "",
+  email: ""
+}
+
 @Component({
   selector: 'app-add-participant',
   templateUrl: './add-participant.component.html',
@@ -8,12 +15,9 @@ import { IParticipant } from 'src/app/models/participant';
 })
 export class AddParticipantComponent implements OnInit {
 
-  participant: IParticipant = {
-    id: 0,
-    forename: "",
-    surname: "",
-    email: ""
-  }
+  participant: IParticipant = newParticipant;
+
+  @Input() onClear = new EventEmitter();
 
   @Input() error: string = ""; 
 
@@ -24,6 +28,7 @@ export class AddParticipantComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.onClear.subscribe(() => this.participant = newParticipant);
   }
 
 

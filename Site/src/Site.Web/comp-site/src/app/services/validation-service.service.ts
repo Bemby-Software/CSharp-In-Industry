@@ -15,6 +15,6 @@ export class ValidationService {
   }
 
   isEmailInUse(email: string) {
-    return this.client.get<boolean>(`api/validation/isEmailInUse/${email}`);
+    return this.client.get(`api/validation/isEmailOk/${email}`);
   }
 }

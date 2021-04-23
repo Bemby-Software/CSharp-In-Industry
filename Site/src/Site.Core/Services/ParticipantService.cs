@@ -34,7 +34,17 @@ namespace Site.Core.Services
 
         }
 
-        public Task<bool> IsEmailInUseAsync(string email) 
-            => _participantRepository.IsEmailInUseAsync(email);
+        public async Task IsEmailInOkAsync(string email)
+        {
+            if (!_emailHelper.IsValidEmail(email))
+            {
+                throw new InvalidEmailException();
+            }
+            
+            if (await _participantRepository.IsEmailInUseAsync(email))
+            {
+                throw new EmailInUseException();
+            }
+        }
     }
 }

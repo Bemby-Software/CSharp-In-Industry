@@ -42,7 +42,7 @@ namespace Site.Web.Acceptance.StepDefinitions
         [When(@"a participant tries to use email '(.*)'")]
         public async Task WhenAParticipantTriesToUseEmail(string email)
         {
-            var response = await _client.GetAsync($"api/validation/isEmailInUse/{email}");
+            var response = await _client.GetAsync($"api/validation/isEmailOk/{email}");
             _scenarioContext.Set(response);
         }
 

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IApiError } from 'src/app/models/errors';
 import { IParticipant } from 'src/app/models/participant';
 import { ITeam } from 'src/app/models/team';
 import { ValidationService } from 'src/app/services/validation-service.service';
@@ -21,7 +23,9 @@ export class SignUpComponent implements OnInit {
     id: 0,
     name: '',
     participants: []
-  }  
+  }
+
+  onClearForm = new EventEmitter();
 
   constructor(private route: ActivatedRoute, private validationService: ValidationService) {
       route.queryParams.subscribe(params => {
@@ -30,27 +34,27 @@ export class SignUpComponent implements OnInit {
    }
 
    removeParticipant(email: string) {
-     console.log(participant);
-     var participant = this.team.participants.find(p => p.email === email);
+     const participant = this.team.participants.find(p => p.email === email);
      if(participant) {
         var index = this.team.participants.indexOf(participant);
-        this.team.participants.slice(index);
+        this.team.participants.splice(index, 1);
      }
      else {
        console.log("No participant with email" + email);
      }
-    
+
    }
 
    addParticipant(participant: IParticipant) {
      if(this.checkParticipant(participant)) {
         this.team.participants.push(participant)
+        this.onClearForm.emit();
      }
    }
 
 
    checkParticipant(participant: IParticipant): boolean {
-      
+
       var existing = this.team.participants.find(p => p.email === participant.email);
 
       if(participant.forename === "") {
@@ -67,12 +71,27 @@ export class SignUpComponent implements OnInit {
 
         this.validationService.isEmailInUse(participant.email)
         .subscribe(isInUse => {
-            this.participantError = isInUse ? emailInUseError : "";
-            return !isInUse;
-        }, err => {
+            this.participantError = "";
+            return true;
+        }, (err: HttpErrorResponse) => {    
+
           this.participantError = "Something went wrong please try again";
-          return false;
-          console.log(err)
+
+          if(err.status === 400) {
+            var dto = err.error as IApiError;
+
+            if(dto.isUserFriendly) {
+              this.participantError = dto.reason
+            }
+            else {              
+            }          
+            return false;    
+          }
+          else {
+            return false;
+          }
+
+                
         })
 
       } else {

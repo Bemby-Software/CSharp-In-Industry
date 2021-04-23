@@ -17,10 +17,11 @@ namespace Site.Web.Controllers
             _participantService = participantService;
         }
 
-        [HttpGet("IsEmailInUse/{email}")]
-        public async Task<IActionResult> IsEmailInUse([FromRoute] string email)
+        [HttpGet("IsEmailOk/{email}")]
+        public async Task<IActionResult> IsEmailOk([FromRoute] string email)
         {
-            return Ok(await _participantService.IsEmailInUseAsync(email));
+            await _participantService.IsEmailInOkAsync(email);
+            return Ok();
         }
         
         [HttpGet("IsTeamNameInUse/{name}")]

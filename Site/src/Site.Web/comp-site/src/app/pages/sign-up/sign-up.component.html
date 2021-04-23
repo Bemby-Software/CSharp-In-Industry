@@ -5,7 +5,7 @@
         </div>
 
         <div class="my-10">
-            <app-add-participant (onNewParticipant)="addParticipant($event)" (onValidateParticipant)="checkParticipant($event)" [error]="participantError" ></app-add-participant> 
+            <app-add-participant [onClear]="onClearForm" (onNewParticipant)="addParticipant($event)" (onValidateParticipant)="checkParticipant($event)" [error]="participantError" ></app-add-participant> 
         </div>
 
 

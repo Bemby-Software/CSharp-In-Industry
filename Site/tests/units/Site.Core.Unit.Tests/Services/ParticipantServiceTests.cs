@@ -122,21 +122,48 @@ namespace Site.Core.Unit.Tests.Services
             await sut.ValidateParticipant(participant);
         }
         
-        [TestCase(false)]
-        [TestCase(true)]
-        public async Task IsEmailInUseAsync_Value_ReturnsCorrectResult(bool isInUse)
+        [Test]
+        public void IsEmailInOkAsync_InvalidEmail_Throws()
         {
             //Arrange
             var sut = CreateSut();
 
-            _participantsRepository.Setup(o => o.IsEmailInUseAsync(It.IsAny<string>()))
-                .ReturnsAsync(isInUse);
+            _emailHelper.Setup(o => o.IsValidEmail(It.IsAny<string>())).Returns(false);
 
             //Act
-            var result = await sut.IsEmailInUseAsync("test@test.com");
-
-            //Assert
-            Assert.AreEqual(isInUse, result);
+            Assert.ThrowsAsync<InvalidEmailException>(() => sut.IsEmailInOkAsync("test@test.com"));
         }
+        
+        [Test]
+        public void IsEmailInOkAsync_InUseEmail_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _emailHelper.Setup(o => o.IsValidEmail(It.IsAny<string>())).Returns(true);
+
+            _participantsRepository.Setup(o => o.IsEmailInUseAsync(It.IsAny<string>()))
+                .ReturnsAsync(true);
+
+            //Act
+            Assert.ThrowsAsync<EmailInUseException>(() => sut.IsEmailInOkAsync("test@test.com"));
+        }
+        
+        [Test]
+        public async Task IsEmailInOkAsync_OkEmail_DoesNotThrows()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _emailHelper.Setup(o => o.IsValidEmail(It.IsAny<string>())).Returns(true);
+
+            _participantsRepository.Setup(o => o.IsEmailInUseAsync(It.IsAny<string>()))
+                .ReturnsAsync(false);
+
+            //Act
+            await sut.IsEmailInOkAsync("test@test.com");
+        }
+        
+        
     }   
 }
