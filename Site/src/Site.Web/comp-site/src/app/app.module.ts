@@ -22,6 +22,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ParticipantsTableComponent } from './components/signup/participants-table/participants-table.component';
 import { AddParticipantComponent } from './components/signup/add-participant/add-participant.component';
 import { SigninComponent } from './pages/signin/signin.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,11 @@ import { SigninComponent } from './pages/signin/signin.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
