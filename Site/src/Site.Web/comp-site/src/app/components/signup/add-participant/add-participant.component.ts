@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { IParticipant } from 'src/app/models/participant';
+import { ParticipantsService } from 'src/app/services/participants-service';
 
 const newParticipant = {
   id: 0,
@@ -13,32 +15,44 @@ const newParticipant = {
   templateUrl: './add-participant.component.html',
   styleUrls: ['./add-participant.component.scss']
 })
-export class AddParticipantComponent implements OnInit {
+export class AddParticipantComponent implements OnInit, OnDestroy {
 
   participant: IParticipant = newParticipant;
 
-  @Input() onClear = new EventEmitter();
+  
 
-  @Input() error: string = ""; 
+  error: string = ""; 
 
-  @Output() onValidateParticipant = new EventEmitter<IParticipant>();
+  private errorSub: Subscription;
 
-  @Output() onNewParticipant = new EventEmitter<IParticipant>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-    this.onClear.subscribe(() => this.participant = newParticipant);
+  constructor(private addService: ParticipantsService) { 
+      this.errorSub = this.addService.onError().subscribe(error => {
+        this.error = error;
+      })
   }
 
-
+  ngOnInit(): void {
+    
+  }
 
   onLeaveEmail() {
-    this.onValidateParticipant.emit(this.participant);
+    this.addService.check(this.participant);
+  }
+
+  private clear() {
+      this.participant.email = "";
+      this.participant.forename = "";
+      this.participant.surname = "";
   }
 
   onAddParticipant() {
-    this.onNewParticipant.emit(this.participant);    
+    if(this.addService.add(this.participant)) {
+        this.clear(); 
+    };
+  }
+
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
   }
 
 }

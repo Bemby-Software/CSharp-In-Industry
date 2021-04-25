@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IParticipant } from 'src/app/models/participant';
+import { ParticipantsService } from 'src/app/services/participants-service';
 
 @Component({
   selector: 'app-participants-table',
@@ -10,13 +11,12 @@ export class ParticipantsTableComponent implements OnInit {
 
   @Input() participants: IParticipant[] = []
 
-  @Output() onParticipantRemoved = new EventEmitter<string>();
 
   onRemove(participant: IParticipant) {    
-    this.onParticipantRemoved.emit(participant.email);
+    this.participantsService.remove(participant.email);
   }
 
-  constructor() { }
+  constructor(private participantsService: ParticipantsService) { }
 
   ngOnInit(): void {
   }

@@ -5,12 +5,12 @@
         </div>
 
         <div class="my-10">
-            <app-add-participant [onClear]="onClearForm" (onNewParticipant)="addParticipant($event)" (onValidateParticipant)="checkParticipant($event)" [error]="participantError" ></app-add-participant> 
+            <app-add-participant></app-add-participant> 
         </div>
 
 
         <div class="my-10">
-            <app-participants-table (onParticipantRemoved)="removeParticipant($event)" [participants]="team.participants"></app-participants-table>
+            <app-participants-table [participants]="team.participants"></app-participants-table>
         </div>
 
 
