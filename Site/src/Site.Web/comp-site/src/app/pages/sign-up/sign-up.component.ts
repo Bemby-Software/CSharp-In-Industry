@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITeam } from 'src/app/models/team';
-import { ParticipantsService } from 'src/app/services/participants-service';
+import { ParticipantsService } from 'src/app/services/participants-service.service';
 import { ValidationService } from 'src/app/services/validation-service.service';
 
 
