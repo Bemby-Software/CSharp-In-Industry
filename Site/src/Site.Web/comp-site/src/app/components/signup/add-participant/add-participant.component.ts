@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { IParticipant } from 'src/app/models/participant';
-import { ParticipantsService } from 'src/app/services/participants-service.service';
+import { ParticipantsService } from 'src/app/services/participants.service';
 
 const newParticipant = {
   id: 0,

@@ -1,7 +1,7 @@
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ValidationService } from 'src/app/services/validation-service.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 const teamNameInUse: string = "Oops! That team name is in use.";
 const teamNameRequired: string = "Oops! A team name is required";

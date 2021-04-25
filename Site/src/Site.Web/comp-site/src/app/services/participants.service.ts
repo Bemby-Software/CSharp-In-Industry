@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IApiError } from '../models/errors';
 import { IParticipant } from '../models/participant';
-import { ValidationService } from './validation-service.service';
+import { ValidationService } from './validation.service';
 
 const emailInUseError = "The email provided is already in use";
 

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IParticipant } from 'src/app/models/participant';
-import { ParticipantsService } from 'src/app/services/participants-service.service';
+import { ParticipantsService } from 'src/app/services/participants.service';
 
 @Component({
   selector: 'app-participants-table',

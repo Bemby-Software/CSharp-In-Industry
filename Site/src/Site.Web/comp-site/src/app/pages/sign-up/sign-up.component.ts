@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ITeam } from 'src/app/models/team';
-import { ParticipantsService } from 'src/app/services/participants-service.service';
-import { ValidationService } from 'src/app/services/validation-service.service';
+import { ApiHelperService } from 'src/app/services/api-helper.service';
+import { ParticipantsService } from 'src/app/services/participants.service';
+import { TeamsService } from 'src/app/services/teams.service';
 
 
 @Component({
@@ -16,16 +17,19 @@ export class SignUpComponent implements OnInit, OnDestroy {
 
   participantError: string = "";
 
-  team: ITeam = {
+  defaultTeam: ITeam = {
     id: 0,
     name: '',
     participants: []
-  }
+  };
+
+  team: ITeam = this.defaultTeam;
 
   addSubscription: Subscription;
   removeSubscription: Subscription;
 
-  constructor(private route: ActivatedRoute, private validationService: ValidationService, private addService: ParticipantsService) {
+  constructor(private route: ActivatedRoute, private addService: ParticipantsService, private teamsService: TeamsService, 
+    private apiHelperService: ApiHelperService, private router: Router) {
       route.queryParams.subscribe(params => {
           this.team.name = params["name"];
       })
@@ -35,6 +39,15 @@ export class SignUpComponent implements OnInit, OnDestroy {
       })
 
       this.removeSubscription = addService.onRemove().subscribe(email => this.removeParticipant(email));
+   }
+
+
+   signUp() {
+      this.teamsService.signUp(this.team)
+      .subscribe(() => {
+          this.team = {...this.defaultTeam};
+          this.router.navigate(["/signin"]);
+      }, this.apiHelperService.handle400ErrorWithToast);
    }
 
    removeParticipant(email: string) {

@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { ParticipantsTableComponent } from './components/signup/participants-table/participants-table.component';
 import { AddParticipantComponent } from './components/signup/add-participant/add-participant.component';
+import { SigninComponent } from './pages/signin/signin.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AddParticipantComponent } from './components/signup/add-participant/add
     TeamNameEntryComponent,
     SignUpComponent,
     ParticipantsTableComponent,
-    AddParticipantComponent
+    AddParticipantComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
