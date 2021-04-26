@@ -23,8 +23,20 @@ jobs:
         - name: Build  
           run: dotnet build Site/Site.sln -c Release
 
-        - name: Test
-          run: dotnet test Site/Site.sln -c Release
+        - name: Register Recursive Test Searcher
+          run: chmod +x Site/scripts/shell/test-dir.sh
+        
+        - name: Pull Sql Server Image
+          run: docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+        - name: Run Unit Tests
+          run: Site/scripts/shell/test-dir.sh Site/tests/units/
+
+        - name: Run Integration Tests
+          run: Site/scripts/shell/test-dir.sh Site/tests/intergration/
+        
+        - name: Run Acceptance Tests
+          run: Site/scripts/shell/test-dir.sh Site/tests/acceptance/
 
         - name: Login to GitHub Packages Docker Registry
           uses: docker/login-action@v1
