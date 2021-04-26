@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Site.Core;
@@ -17,19 +18,24 @@ namespace Site.Web
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        private readonly IConfiguration _configuration;
+        private const string AppPrefix = "comp-site";
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCore();
             services.AddHealthChecks()
                 .AddCheck<DbHealthCheck>("Database");
 
-            services.AddSingleton<ISiteConfiguration>(new SiteConfiguration
-            {
-                DbConnectionString = "Server=localhost,1434;Database=TestingSiteDb;User Id=SA;Password=-Site123Dev-"
-            });
-
+            var settings = new SiteConfiguration();
+            _configuration.GetSection($"{AppPrefix}-Settings").Bind(settings);
+            services.AddSingleton<ISiteConfiguration>(settings);
+                
             
             services.AddControllers(config => config.Filters.Add(new CoreExceptionFilter()));
             services.AddSpaStaticFiles(config => config.RootPath = "comp-site/dist");
