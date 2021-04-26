@@ -1,0 +1,26 @@
+<div class="bg-white py-20">
+
+    <div class="flex text-center justify-center">
+
+        <app-primary-title class="" [title]="'Judged On'"></app-primary-title>
+
+    </div>
+
+
+    <div style="grid-auto-rows: 1fr;" class="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-5">
+
+        <div *ngFor="let i of criteria" class="border border-gray-300 shadow-sm rounded-lg">
+
+
+            <div class="h-44 bg-gray-100 text-light-blue-400 flex items-center justify-center">
+                <i [ngClass]="getClassForCriteriaIcon(i)"></i>
+            </div>
+            <div class="h-14 flex flex-col items-center justify-center">
+                <h3 class="text-lg">{{i.title}}</h3>
+            </div>
+
+            <p class="p-5 text-center text-sm">{{i.description}}</p>
+            </div>
+    </div>
+
+</div>

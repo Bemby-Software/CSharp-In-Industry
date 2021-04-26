@@ -1,0 +1,24 @@
+<div class="h-screen bg-white w-full flex justify-center items-start">
+    <div class="bg-white shadow-xl rounded-lg border border-light-blue-400 mt-10 mx-20 px-16 py-10 mb-32">
+        <div class="flex items-center justify-center">
+            <h2 class="uppercase mt-2 ml-2 text-3xl">{{team.name}}</h2>
+        </div>
+
+        <div class="my-10">
+            <app-add-participant></app-add-participant> 
+        </div>
+
+
+        <div class="my-10">
+            <app-participants-table [participants]="team.participants"></app-participants-table>
+        </div>
+
+
+
+        <div class="flex justify-center items-center">
+            <button (click)="signUp()" class="sink bg-light-blue-400 px-32 md:py-5 uppercase rounded-full text-sm py-2 md:text-lg text-white">Sign Up</button>
+        </div>
+
+    </div>
+
+</div>

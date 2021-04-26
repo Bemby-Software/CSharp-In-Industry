@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <RootNamespace>Site.Web.Acceptance</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentAssertions" Version="5.10.3" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="5.0.5" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
+      <PackageReference Include="SpecFlow" Version="3.7.38" />
+      <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.7.38" />
+      <PackageReference Include="SpecFlow.xUnit" Version="3.7.38" />
+      <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\src\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\..\..\src\Site.Web\Site.Web.csproj" />
+      <ProjectReference Include="..\..\Site.Testing.Common\Site.Testing.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="appsettings.json">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+</Project>
