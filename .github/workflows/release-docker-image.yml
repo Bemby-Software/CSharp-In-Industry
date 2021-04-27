@@ -46,7 +46,7 @@ jobs:
             password: ${{ secrets.BILLY_ACCESS_TOKEN }}
 
         - name: Build artifact
-          run: docker build -t docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site Site/src/Site.Web/
+          run: docker build -t docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site Site/src/
 
         - name: Publish Package
           run: docker push docker.pkg.github.com/bemby-software/csharp-in-industry/competition-site
