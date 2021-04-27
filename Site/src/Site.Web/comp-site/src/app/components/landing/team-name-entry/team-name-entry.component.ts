@@ -11,30 +11,30 @@ const teamNameRequired: string = "Oops! A team name is required";
   templateUrl: './team-name-entry.component.html',
   styleUrls: ['./team-name-entry.component.scss']
 })
-export class TeamNameEntryComponent implements OnInit {    
+export class TeamNameEntryComponent implements OnInit {
   teamName: string = "";
-  teamNameError = "";  
+  teamNameError = "";
 
 
 
   constructor(private validationService: ValidationService, private router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
 
-  onLeaveTeamNameBox() {
+  checkTeamName() {
 
 
-    if(this.teamName === "") {
-        this.teamNameError = teamNameRequired;
-        return;
+    if (this.teamName === "") {
+      this.teamNameError = teamNameRequired;
+      return;
     }
 
     this.validationService.isTeamNameInUse(this.teamName)
       .subscribe((isInUse) => {
-        
-        if(isInUse) {
+
+        if (isInUse) {
           this.teamNameError = teamNameInUse;
         }
         else {
@@ -49,9 +49,26 @@ export class TeamNameEntryComponent implements OnInit {
 
 
   onSignUp() {
-    if(this.teamNameError === "") {
-      this.router.navigate(["/signup"], {queryParams: {name: this.teamName}});
+
+    if (this.teamName === "") {
+      this.teamNameError = teamNameRequired;
+      return;
     }
+
+    this.validationService.isTeamNameInUse(this.teamName)
+      .subscribe((isInUse) => {
+
+        if (isInUse) {
+          this.teamNameError = teamNameInUse;
+        }
+        else {
+          this.router.navigate(["/signup"], { queryParams: { name: this.teamName } });
+        }
+
+      }, err => {
+        this.teamNameError = "Oops! Sorry something went wrong";
+        console.log(err);
+      })
   }
 
 }
