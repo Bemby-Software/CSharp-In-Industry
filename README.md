@@ -1,6 +1,8 @@
 # C# In Industry
 A course delivered to teach C# practices and principles that are used in industry to students.
 
+> *Checkout the website* [HERE](https://comp-site.azurewebsites.net/)
+
 # Overview
 This series of sessions is designed to give students who are learnin the basics of C# some insight into how the language is used in industry and how they can begin to prepare for a career in software development.
 
