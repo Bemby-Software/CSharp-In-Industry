@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {AuthService} from "../../services/auth.service";
+import {ParticipantService} from "../../services/participant.service";
 import {of} from "rxjs";
+import {UserSessionService} from "../../services/user-session.service";
 
 @Component({
   selector: 'app-signin',
@@ -16,7 +17,7 @@ export class SigninComponent implements OnInit {
   emaail: string = "";
   token: string = "";
 
-  constructor(private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private route: ActivatedRoute, private userSessionService: UserSessionService) {
 
 
     route.queryParams.subscribe(params => {
@@ -28,8 +29,17 @@ export class SigninComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.signIn('test', 'test123')
-      .subscribe(res => console.log(res));
+    this.userSessionService.signIn('test', 'test123')
+      .subscribe(res => {
+
+        console.log(res);
+        if(res.successful) {
+
+        }
+        else {
+
+        }
+      });
   }
 
 }

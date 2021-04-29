@@ -11,6 +11,7 @@ export interface IResult {
 
 export interface IDataResult<T> extends IResult {
   data: T | null;
+  asResult(): IResult;
 }
 
 
@@ -23,6 +24,10 @@ export class DataResult<T> implements IDataResult<T> {
     this.error = error;
     this.successful = successful;
     this.data = data;
+  }
+
+  public asResult() {
+    return new SimpleResult(this.successful, this.error);
   }
 
   static Failure<T>(error: string | null = null) {
@@ -44,11 +49,11 @@ export class SimpleResult implements IResult {
     this.successful = successful;
   }
 
-  static Success() {
+  static Success() : IResult {
     return new SimpleResult(true, "");
   }
 
-  static Failure(error: string | null = null) {
+  static Failure(error: string | null = null) : IResult {
     return new SimpleResult(false, error === null ? "Oops! Something went wrong." : error);
   }
 }

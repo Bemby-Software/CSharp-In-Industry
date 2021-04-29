@@ -25,6 +25,7 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GithubInstructionsNoticeComponent } from './components/signin/github-instructions-notice/github-instructions-notice.component';
+import { TeamHubComponent } from './pages/team-hub/team-hub.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { GithubInstructionsNoticeComponent } from './components/signin/github-in
     ParticipantsTableComponent,
     AddParticipantComponent,
     SigninComponent,
-    GithubInstructionsNoticeComponent
+    GithubInstructionsNoticeComponent,
+    TeamHubComponent
   ],
   imports: [
     BrowserModule,

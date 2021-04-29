@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpErrorResponse, HttpResponse, HttpResponseBase} from "@angular/common/http";
+import {HttpErrorResponse, HttpHeaders, HttpResponse, HttpResponseBase} from "@angular/common/http";
 import {Observable, of} from "rxjs";
 import {DataResult, IApiError, IDataResult, IResult, SimpleResult} from "../models/errors";
 import {catchError, map, tap} from "rxjs/operators";
@@ -10,6 +10,14 @@ import {catchError, map, tap} from "rxjs/operators";
 export class ApiHelperService {
 
   constructor() { }
+
+  getAuthHeadersOptions(token: string) {
+    let headers = new HttpHeaders();
+    headers.set('X-COMP-AUTH-', token)
+    return {
+      headers: headers
+    }
+  }
 
   handleSimpleHttpResponse<T>(observable: Observable<T>): Observable<IResult> {
       return observable.pipe(
