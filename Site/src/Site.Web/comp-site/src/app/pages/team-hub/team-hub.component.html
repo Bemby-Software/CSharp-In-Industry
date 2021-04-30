@@ -1,1 +1,7 @@
-<p>team-hub works!</p>
+
+<div *ngIf="participant === null">
+    <h1>Sorry something went wrong</h1>
+</div>
+<div *ngIf="participant !== null">
+    {{participant.forename}}
+</div>

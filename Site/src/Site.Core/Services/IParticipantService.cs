@@ -9,5 +9,6 @@ namespace Site.Core.Services
         Task IsEmailInOkAsync(string email);
 
         Task SignInAsync(string email, string token);
+        Task<Participant> GetByTokenAsync(string token, bool includeTeam);
     }
 }

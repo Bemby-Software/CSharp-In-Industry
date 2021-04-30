@@ -14,12 +14,8 @@ export class ParticipantService {
 
   constructor(private http: HttpClient, private apiHelper: ApiHelperService) { }
 
-  isSignedIn(): boolean {
-    return false;
-  }
-
   signIn(email: string, token: string) {
-      const request$ = this.http.post('api/auth', {email: email, token: token});
+      const request$ = this.http.post('api/participant/signin', {email: email, token: token});
       return this.apiHelper.handleSimpleHttpResponse(request$);
   }
 

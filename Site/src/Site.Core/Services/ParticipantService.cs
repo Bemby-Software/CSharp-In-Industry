@@ -52,5 +52,10 @@ namespace Site.Core.Services
             if (!await _participantRepository.AreSignInDetailsValidAsync(email, token))
                 throw new ParticipantsSignInDetailInvalidException();
         }
+
+        public Task<Participant> GetByTokenAsync(string token, bool includeTeam)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

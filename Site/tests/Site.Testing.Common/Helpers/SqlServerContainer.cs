@@ -14,7 +14,7 @@ namespace Site.Testing.Common.Helpers
             var settings = TestConfiguration.GetConfiguration();
             var client = new DockerClientConfiguration().CreateClient();
 
-            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
+            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters{All = true});
             var sqlServer = containers.FirstOrDefault(x => x.Names.Any(x => x.Contains(settings.SqlServerContainerName)));
             if (sqlServer is not null)
                 await client.Containers.RemoveContainerAsync(sqlServer.ID, new ContainerRemoveParameters {Force = true});

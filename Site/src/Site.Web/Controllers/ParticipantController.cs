@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Site.Core.Conversions;
 using Site.Core.DTO.Requests;
+using Site.Core.DTO.Responses;
 using Site.Core.Services;
 
 namespace Site.Web.Controllers
@@ -17,10 +19,17 @@ namespace Site.Web.Controllers
         }
 
         [HttpPost("signin")]
-        public async Task<IActionResult> SignIn([FromBody] SignInRequest signInRequest)
+        public async Task<ActionResult> SignIn([FromBody] SignInRequest signInRequest)
         {
             await _participantService.SignInAsync(signInRequest.Email, signInRequest.Token);
             return Ok();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<GetParticipantResponse>> Get([FromQuery] string token, [FromQuery] bool includeTeam = false)
+        {
+            var participant = await _participantService.GetByTokenAsync(token, includeTeam);
+            return Ok(participant.AsGetParticipantResponse());
         }
     }
 }

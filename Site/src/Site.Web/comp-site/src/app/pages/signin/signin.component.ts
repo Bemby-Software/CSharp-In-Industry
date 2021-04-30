@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {ParticipantService} from "../../services/participant.service";
-import {of} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserSessionService} from "../../services/user-session.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-signin',
@@ -14,10 +13,11 @@ export class SigninComponent implements OnInit {
 
   justSignedUp: boolean = false;
 
-  emaail: string = "";
+  email: string = "";
   token: string = "";
+  error: string = ""
 
-  constructor(private route: ActivatedRoute, private userSessionService: UserSessionService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userSessionService: UserSessionService, private toastRService: ToastrService) {
 
 
     route.queryParams.subscribe(params => {
@@ -28,16 +28,23 @@ export class SigninComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-    this.userSessionService.signIn('test', 'test123')
-      .subscribe(res => {
+  get failed() {
+    return this.error != "";
+  }
 
+  ngOnInit(): void {
+  }
+
+  signIn() {
+    this.userSessionService.signIn(this.email, this.token)
+      .subscribe(res => {
         console.log(res);
         if(res.successful) {
-
+            this.router.navigate(['/team-hub'])
         }
         else {
-
+          this.toastRService.error(res.error);
+          this.error = res.error;
         }
       });
   }

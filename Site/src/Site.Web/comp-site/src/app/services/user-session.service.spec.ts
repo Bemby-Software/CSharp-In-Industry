@@ -32,7 +32,7 @@ describe('UserSessionService', () => {
     const token = "token"
 
 
-    it('should return unsuccesful result if sign in fails', () => {
+    it('should return unsuccessful result if sign in fails', () => {
 
       //Arrange
       var result$ = of(SimpleResult.Failure(error));
@@ -49,7 +49,7 @@ describe('UserSessionService', () => {
     });
 
 
-    it('should return succseful result if gets participants details', () => {
+    it('should return successful result if gets participants details', () => {
 
       //Arrange
       var result$ = of(SimpleResult.Success());
@@ -68,7 +68,7 @@ describe('UserSessionService', () => {
       });
     });
 
-    it('should return succseful result if gets participants details fails', () => {
+    it('should return successful result if gets participants details fails', () => {
 
       //Arrange
       var result$ = of(SimpleResult.Success());

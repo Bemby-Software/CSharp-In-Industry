@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ITeamParticipant } from 'src/app/models/participant';
+import { UserSessionService } from 'src/app/services/user-session.service';
 
 @Component({
   selector: 'app-team-hub',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TeamHubComponent implements OnInit {
 
-  constructor() { }
+  constructor(private userSessionService: UserSessionService) { }
+
+  participant: ITeamParticipant | null = null;;
 
   ngOnInit(): void {
+      this.participant = this.userSessionService.getParticipant();
   }
 
 }
