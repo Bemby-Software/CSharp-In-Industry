@@ -1,13 +1,10 @@
-import { TestBed } from '@angular/core/testing';
-
 import { ParticipantService } from './participant.service';
 
-describe('AuthService', () => {
+describe('Participants Service', () => {
   let service: ParticipantService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(ParticipantService);
+    service = new ParticipantService({} as any, {} as any);
   });
 
   it('should be created', () => {

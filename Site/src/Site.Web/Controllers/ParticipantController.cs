@@ -7,11 +7,11 @@ namespace Site.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ParticipantsController : ControllerBase
+    public class ParticipantController : ControllerBase
     {
         private readonly IParticipantService _participantService;
 
-        public ParticipantsController(IParticipantService participantService)
+        public ParticipantController(IParticipantService participantService)
         {
             _participantService = participantService;
         }

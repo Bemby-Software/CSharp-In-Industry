@@ -163,6 +163,37 @@ namespace Site.Core.Unit.Tests.Services
             //Act
             await sut.IsEmailInOkAsync("test@test.com");
         }
+
+        [Test]
+        public async Task SignInAsync_ValidDetails_DoesNotThrow()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var email = "test@test.com";
+            var token = "token123";
+
+            _participantsRepository.Setup(o => o.AreSignInDetailsValidAsync(email, token))
+                .ReturnsAsync(true);
+
+            //Act
+            //Assert
+            await sut.SignInAsync(email, token);
+        }
+        
+        [Test]
+        public void SignInAsync_InValidDetails_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var email = "test@test.com";
+            var token = "token123";
+
+            //Act
+            //Assert
+            Assert.ThrowsAsync<ParticipantsSignInDetailInvalidException>(() => sut.SignInAsync(email, token));
+        }
         
         
     }   

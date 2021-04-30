@@ -7,5 +7,7 @@ namespace Site.Core.Services
     {
         Task ValidateParticipant(Participant participant);
         Task IsEmailInOkAsync(string email);
+
+        Task SignInAsync(string email, string token);
     }
 }

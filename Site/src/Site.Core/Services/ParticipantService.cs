@@ -46,5 +46,11 @@ namespace Site.Core.Services
                 throw new EmailInUseException();
             }
         }
+
+        public async Task SignInAsync(string email, string token)
+        {
+            if (!await _participantRepository.AreSignInDetailsValidAsync(email, token))
+                throw new ParticipantsSignInDetailInvalidException();
+        }
     }
 }
