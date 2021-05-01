@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper.Contrib.Extensions;
 using NUnit.Framework;
@@ -16,6 +17,7 @@ namespace Site.Core.Integration.Tests.Repositories
         public override void Setup()
         {
             Mocker.Use<IDbConnection>(DbHelper.TestConnection);
+            DbHelper.ReCreateDatabase();
         }
 
         [Test]
@@ -139,6 +141,66 @@ namespace Site.Core.Integration.Tests.Repositories
             
             //Assert
             Assert.IsFalse(result);
+        }
+
+        [Test]
+        public async Task GetAsync_TokenForParticipant_GetsParticipant()
+        {
+            //Arrange
+            var sut = CreateSut();
+            
+            var tokenValue = "some-token";
+
+            var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
+
+            var participant = new TestParticipant(teamId) {Email = "test-sign-in@test.com"};
+            var participantId = await DbHelper.TestConnection.InsertAsync(participant);
+
+            await DbHelper.TestConnection.InsertAsync(new Token
+            {
+                CreatedAt = DateTime.Now, 
+                Value = tokenValue, 
+                IsValid = true, 
+                ParticipantId = participantId,
+                TeamId = teamId
+            });
+
+            //Act
+            var got = await sut.GetAsync(tokenValue);
+
+            //Assert
+            Assert.AreEqual(participantId, got.Id);
+            Assert.AreEqual(participant.Forename, got.Forename);
+            Assert.AreEqual(participant.Surname, got.Surname);
+            Assert.AreEqual(participant.Email, got.Email);
+            Assert.AreEqual(teamId, got.TeamId);
+        }
+
+        [Test]
+        public async Task GetAllAsync_TeamId_GetsAllParticipants()
+        {
+            //Arrange
+            var sut = CreateSut();
+            var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
+
+
+            var sample = new TestParticipant(teamId) {Email = "test-sign-in@test.com"};
+            await DbHelper.TestConnection.InsertAsync(sample);
+            await DbHelper.TestConnection.InsertAsync(sample);
+            await DbHelper.TestConnection.InsertAsync(sample);
+            await DbHelper.TestConnection.InsertAsync(sample);
+            
+            //Act
+            var participants = await sut.GetAllAsync(teamId);
+            
+            //Assert
+            Assert.AreEqual(4, participants.Count);
+            var participant = participants.First();
+            Assert.AreEqual(participant.Forename, sample.Forename);
+            Assert.AreEqual(participant.Surname, sample.Surname);
+            Assert.AreEqual(participant.Email, sample.Email);
+            Assert.AreEqual(teamId, sample.TeamId);
+            Assert.AreNotEqual(0, participant.Id);
         }
     }
 }

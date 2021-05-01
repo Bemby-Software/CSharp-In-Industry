@@ -46,6 +46,24 @@ namespace Site.Core.Integration.Tests.Repositories
             //Assert
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public async Task GetAsync_TeamId_GetsTeam()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var team = new TestTeam();
+
+            var teamId = await DbHelper.TestConnection.InsertAsync(team);
+
+            //Act
+            var got = await sut.GetAsync(teamId);
+
+            //Assert
+            Assert.AreEqual(teamId, got.Id);
+            Assert.AreEqual(team.Name, got.Name);
+        }
         
     }
 }
