@@ -28,9 +28,7 @@ namespace Site.Core.Integration.Tests
 
             await DbHelper.EnsureStarted(settings.DbServerConnectionString, TimeSpan.FromSeconds(60));
             
-            await DbHelper.CreateTestDatabase(settings);
-            
-            await DbHelper.RespawnDb();
+            await DbHelper.ReCreateDatabase();
         }
     }
 }

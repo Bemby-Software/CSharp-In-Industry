@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Dapper;
 using Respawn;
+using Site.Core.Entities;
 
 namespace Site.Testing.Common.Helpers
 {
@@ -62,8 +63,9 @@ namespace Site.Testing.Common.Helpers
             });
 
             await task.TimeoutAfter(timeout);
-
         }
+
+        private static readonly Dictionary<string, string> DatabaseSchema = new();
         
         public static async Task CreateTestDatabase(TestConfiguration settings)
         {
@@ -76,14 +78,22 @@ namespace Site.Testing.Common.Helpers
                 command.CommandText = $@"CREATE DATABASE {settings.SqlServerDatabase}";
                 command.ExecuteNonQuery();
 
-                foreach (var file in Directory.GetFiles(settings.RelativeDatabaseScriptsDirectoryLocation))
+                if (DatabaseSchema.Count == 0)
                 {
-                    if (Path.GetExtension(file) == ".sql")
+                    foreach (var file in Directory.GetFiles(settings.RelativeDatabaseScriptsDirectoryLocation))
                     {
-                        var contents = await File.ReadAllTextAsync(file);
-                        command.CommandText = $"USE {settings.SqlServerDatabase}; {contents}";
-                        command.ExecuteNonQuery();
+                        if (Path.GetExtension(file) == ".sql")
+                        {
+                            var contents = await File.ReadAllTextAsync(file);
+                            DatabaseSchema.Add(file, contents);
+                        }
                     }
+                }
+                
+                foreach (var schema in DatabaseSchema)
+                {
+                    command.CommandText = $"USE {settings.SqlServerDatabase}; {schema.Value}";
+                    command.ExecuteNonQuery();
                 }
             }
             finally
@@ -115,6 +125,17 @@ namespace Site.Testing.Common.Helpers
                         DROP DATABASE {settings.SqlServerDatabase} ;
                 ";
                 command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                if (e.ErrorCode == -2146232060)
+                {
+                    //This code means database does not exist.
+                }
+                else
+                {
+                    throw;
+                }
             }
             finally
             {
