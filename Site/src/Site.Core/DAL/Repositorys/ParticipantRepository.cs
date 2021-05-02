@@ -18,7 +18,7 @@ namespace Site.Core.DAL.Repositorys
                                                         AND Participants.Email = @Email
                                                         AND [Value] = @Token";
         private const string GetByTokenSql =
-            @"SELECT * FROM Participants LEFT JOIN Tokens ON Participants.Id = ParticipantId WHERE [Value] = @Token";
+            @"SELECT ParticipantId AS Id, Forename, Surname, Participants.TeamId, Email FROM Participants LEFT JOIN Tokens ON Participants.Id = ParticipantId WHERE [Value] = @Token";
 
         private const string GetAllByTeamIdSql = "SELECT * FROM Participants WHERE TeamId = @TeamId";
 

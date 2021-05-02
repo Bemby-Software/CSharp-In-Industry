@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Threading.Tasks;
 using Dapper;
+using Respawn;
 
 namespace Site.Testing.Common.Helpers
 {
@@ -89,6 +90,13 @@ namespace Site.Testing.Common.Helpers
             {
                 await connection.CloseAsync();
             }
+        }
+
+        private static Checkpoint _checkpoint = new Checkpoint();
+
+        public static async Task RespawnDb()
+        {
+            await _checkpoint.Reset(TestConfiguration.GetConfiguration().DbConnectionString);
         }
 
         public static async Task ReCreateDatabase()

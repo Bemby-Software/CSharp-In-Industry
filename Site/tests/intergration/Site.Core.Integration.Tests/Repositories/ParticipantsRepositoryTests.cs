@@ -17,7 +17,6 @@ namespace Site.Core.Integration.Tests.Repositories
         public override void Setup()
         {
             Mocker.Use<IDbConnection>(DbHelper.TestConnection);
-            DbHelper.ReCreateDatabase();
         }
 
         [Test]
@@ -62,7 +61,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
 
-            var tokenValue = "some-token";
+            var tokenValue = "some-token-for-valid-sign-in";
 
             var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
@@ -91,7 +90,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
 
-            var tokenValue = "some-token";
+            var tokenValue = "some-token-invalid-sign-in";
 
             var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
@@ -120,7 +119,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
 
-            var tokenValue = "some-token";
+            var tokenValue = "some-token-for-is-signed-in";
 
             var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
@@ -149,7 +148,7 @@ namespace Site.Core.Integration.Tests.Repositories
             //Arrange
             var sut = CreateSut();
             
-            var tokenValue = "some-token";
+            var tokenValue = "some-token-for-get-async-test";
 
             var teamId = await DbHelper.TestConnection.InsertAsync(new TestTeam());
 
