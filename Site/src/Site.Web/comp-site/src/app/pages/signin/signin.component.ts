@@ -38,7 +38,6 @@ export class SigninComponent implements OnInit {
   signIn() {
     this.userSessionService.signIn(this.email, this.token)
       .subscribe(res => {
-        console.log(res);
         if(res.successful) {
             this.router.navigate(['/team-hub'])
         }

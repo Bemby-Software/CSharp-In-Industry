@@ -80,6 +80,119 @@ namespace Site.Web.Acceptance.Features
             this.TestTearDown();
         }
         
+        [Xunit.SkippableFactAttribute(DisplayName="Gets valid participant without team")]
+        [Xunit.TraitAttribute("FeatureTitle", "Participant Actions")]
+        [Xunit.TraitAttribute("Description", "Gets valid participant without team")]
+        public virtual void GetsValidParticipantWithoutTeam()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Gets valid participant without team", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 3
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 4
+        testRunner.Given("a participant with the token \'token\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Forename",
+                            "Surname",
+                            "Email"});
+                table1.AddRow(new string[] {
+                            "Fred",
+                            "Jones",
+                            "fred.jones@gmail.com"});
+#line 5
+        testRunner.And("the details is signed up", ((string)(null)), table1, "And ");
+#line hidden
+#line 8
+        testRunner.When("that participant tries to get there details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 9
+        testRunner.Then("the api returns a 200 status code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 10
+        testRunner.And("the correct participant details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Gets valid participant with team")]
+        [Xunit.TraitAttribute("FeatureTitle", "Participant Actions")]
+        [Xunit.TraitAttribute("Description", "Gets valid participant with team")]
+        public virtual void GetsValidParticipantWithTeam()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Gets valid participant with team", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 12
+    this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+        testRunner.Given("a participant with the token \'token\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Forename",
+                            "Surname",
+                            "Email"});
+                table2.AddRow(new string[] {
+                            "Fred",
+                            "Jones",
+                            "fred.jones@gmail.com"});
+#line 14
+        testRunner.And("the details is signed up", ((string)(null)), table2, "And ");
+#line hidden
+#line 17
+        testRunner.When("that participant tries to get there details including the team", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 18
+        testRunner.Then("the api returns a 200 status code", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 19
+        testRunner.And("the correct participant details", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+        testRunner.And("the team information is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
         [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
         [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : System.IDisposable
