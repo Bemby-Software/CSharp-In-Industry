@@ -214,20 +214,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 22
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table1.AddRow(new string[] {
+                table3.AddRow(new string[] {
                             "",
                             "Jones",
                             "fred.jones@gmail.com"});
-                table1.AddRow(new string[] {
+                table3.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             "joe.bloggs@gmail.com"});
 #line 23
-    testRunner.And("participants with the details", ((string)(null)), table1, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table3, "And ");
 #line hidden
 #line 27
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -279,20 +279,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 34
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Fred",
                             "",
                             "fred.jones@gmail.com"});
-                table2.AddRow(new string[] {
+                table4.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             "joe.bloggs@gmail.com"});
 #line 35
-    testRunner.And("participants with the details", ((string)(null)), table2, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table4, "And ");
 #line hidden
 #line 39
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -344,20 +344,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 46
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Fred",
                             "Jones",
                             "fred.jones@gmail.com"});
-                table3.AddRow(new string[] {
+                table5.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             ""});
 #line 47
-    testRunner.And("participants with the details", ((string)(null)), table3, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table5, "And ");
 #line hidden
 #line 51
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -409,20 +409,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 58
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Fred",
                             "Jones",
                             "fred.jones@gmail.com"});
-                table4.AddRow(new string[] {
+                table6.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             "fred\"adgr@set@.com"});
 #line 59
-    testRunner.And("participants with the details", ((string)(null)), table4, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table6, "And ");
 #line hidden
 #line 63
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -474,34 +474,34 @@ this.ScenarioInitialize(scenarioInfo);
 #line 71
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table5.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Fred",
                             "Jones",
                             "fred.jones@gmail.com"});
-                table5.AddRow(new string[] {
+                table7.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             "joe.bloggs@gmail.com"});
 #line 72
-    testRunner.And("participants with the details are already signed up", ((string)(null)), table5, "And ");
+    testRunner.And("participants with the details are already signed up", ((string)(null)), table7, "And ");
 #line hidden
 #line 76
     testRunner.Given("another team with the name \'Coding Gurus\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Fred",
                             "Jones",
                             "fred.jones@gmail.com"});
 #line 77
-    testRunner.And("participants with the details", ((string)(null)), table6, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table8, "And ");
 #line hidden
 #line 80
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -553,20 +553,20 @@ this.ScenarioInitialize(scenarioInfo);
 #line 87
     testRunner.Given("a team with the name \'Cool Coders\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Forename",
                             "Surname",
                             "Email"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Fred",
                             "Jones",
                             "fred.jones@gmail.com"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Joe",
                             "Bloggs",
                             "joe.blogs@gmail.com"});
 #line 88
-    testRunner.And("participants with the details", ((string)(null)), table7, "And ");
+    testRunner.And("participants with the details", ((string)(null)), table9, "And ");
 #line hidden
 #line 92
     testRunner.When("the team tries to sign up", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

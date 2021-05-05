@@ -16,13 +16,13 @@ namespace Site.Web.Acceptance.Hooks
 
             await DbHelper.EnsureStarted(settings.DbServerConnectionString, TimeSpan.FromSeconds(60));
             
-            await DbHelper.CreateTestDatabase(settings);
+            await DbHelper.ReCreateDatabase();
         }
 
         [BeforeScenario]
         public static async Task ResetDatabase(ScenarioContext scenarioContext)
         {
-            await DbHelper.ReCreateDatabase();
+            await DbHelper.RespawnDb();
         }
         
     }

@@ -8,5 +8,6 @@ namespace Site.Core.DAL.Repositorys
         Task CreateTeamsAsync(Team team);
 
         Task<bool> IsTeamNameInUseAsync(string teamName);
+        Task<Team> GetAsync(int id);
     }
 }

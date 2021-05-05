@@ -26,5 +26,8 @@ namespace Site.Core.DAL.Repositorys
             var team = await _dbConnection.QueryFirstOrDefaultAsync<Team>("SELECT * FROM Teams WHERE Name = @Name", new {Name = teamName});
             return team is not null;
         }
+
+        public Task<Team> GetAsync(int id) 
+            => _dbConnection.QuerySingleAsync<Team>("SELECT * FROM Teams WHERE Id = @Id", new {Id = id});
     }
 }

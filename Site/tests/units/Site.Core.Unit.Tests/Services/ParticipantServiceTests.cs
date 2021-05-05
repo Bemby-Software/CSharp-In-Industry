@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Security.Authentication;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
@@ -13,14 +15,17 @@ using Site.Core.Services;
 namespace Site.Core.Unit.Tests.Services
 {
     public class ParticipantServiceTests : ServiceUnderTest<IParticipantService, ParticipantService>
+    
     {
         private Mock<IEmailHelper> _emailHelper;
         private Mock<IParticipantRepository> _participantsRepository;
+        private Mock<ITeamRepository> _teamRepository;
 
         public override void Setup()
         {
             _emailHelper = Mocker.GetMock<IEmailHelper>();
             _participantsRepository = Mocker.GetMock<IParticipantRepository>();
+            _teamRepository = Mocker.GetMock<ITeamRepository>();
         }
 
         [Test]
@@ -162,6 +167,101 @@ namespace Site.Core.Unit.Tests.Services
 
             //Act
             await sut.IsEmailInOkAsync("test@test.com");
+        }
+
+        [Test]
+        public async Task SignInAsync_ValidDetails_DoesNotThrow()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var email = "test@test.com";
+            var token = "token123";
+
+            _participantsRepository.Setup(o => o.AreSignInDetailsValidAsync(email, token))
+                .ReturnsAsync(true);
+
+            //Act
+            //Assert
+            await sut.SignInAsync(email, token);
+        }
+        
+        [Test]
+        public void SignInAsync_InValidDetails_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            var email = "test@test.com";
+            var token = "token123";
+
+            //Act
+            //Assert
+            Assert.ThrowsAsync<ParticipantsSignInDetailInvalidException>(() => sut.SignInAsync(email, token));
+        }
+
+        [Test]
+        public void GetByTokenAsync_NoParticipantForToken_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            //Act
+            //Assert
+            Assert.ThrowsAsync<InvalidCredentialException>(() => sut.GetByTokenAsync("token", true));
+        }
+        
+        [Test]
+        public async Task GetByTokenAsync_DontIncludeTeamForTokenParticipant_ReturnsParticipant()
+        {
+            //Arrange
+            var sut = CreateSut();
+            var participant = new Participant();
+
+            var token = "token";
+
+            _participantsRepository.Setup(o => o.GetAsync(token))
+                .ReturnsAsync(participant);
+            
+            //Act
+            var result = await sut.GetByTokenAsync(token, false);
+            
+            //Assert
+            Assert.AreEqual(result, participant);
+        }
+        
+        [Test]
+        public async Task GetByTokenAsync_IncludeTeamForTokenParticipant_ReturnsParticipantWithTeam()
+        {
+            //Arrange
+            var sut = CreateSut();
+            var participant = new Participant()
+            {
+                Id = 5,
+                TeamId = 10
+            };
+            var team = new Team(){Id = 10};
+            var participants = new List<Participant>();
+
+            var token = "token";
+
+            _participantsRepository.Setup(o => o.GetAsync(token))
+                .ReturnsAsync(participant);
+
+            _teamRepository.Setup(o => o.GetAsync(participant.TeamId))
+                .ReturnsAsync(team);
+
+            _participantsRepository.Setup(o => o.GetAllAsync(team.Id))
+                .ReturnsAsync(participants);
+                
+            
+            //Act
+            var result = await sut.GetByTokenAsync(token, true);
+            
+            //Assert
+            Assert.AreEqual(result, participant);
+            Assert.AreEqual(team, result.Team);
+            Assert.AreEqual(participants, result.Team.Participants);
         }
         
         

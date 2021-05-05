@@ -46,9 +46,9 @@ export class SignUpComponent implements OnInit, OnDestroy {
   signUp() {
     this.teamsService.signUp(this.team)
       .subscribe(() => {
-          this.toastr.success(`${this.team.name} signed up`);      
-          this.team = { ...this.defaultTeam };          
-          this.router.navigate(["/signin"]);        
+          this.toastr.success(`${this.team.name} signed up`);
+          this.team = { ...this.defaultTeam };
+          this.router.navigate(["/signin"], {queryParams: {justSignedUp: true}});
       }, (response: HttpErrorResponse) => {
 
         if (response.status !== 400) {
@@ -62,7 +62,7 @@ export class SignUpComponent implements OnInit, OnDestroy {
         }
         else {
           this.toastr.error("Oops! Something went wrong")
-        }        
+        }
       });
   }
 

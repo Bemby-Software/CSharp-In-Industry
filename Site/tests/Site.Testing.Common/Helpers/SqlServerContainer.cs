@@ -9,15 +9,37 @@ namespace Site.Testing.Common.Helpers
 {
     public static class SqlServerContainer
     {
-        public static async Task StartAsync()
+        public static async Task StartAsync(bool force = false)
         {
             var settings = TestConfiguration.GetConfiguration();
             var client = new DockerClientConfiguration().CreateClient();
 
-            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters());
+            var containers = await client.Containers.ListContainersAsync(new ContainersListParameters{All = true});
+
+            if (!force)
+            {
+                var server =
+                    containers.FirstOrDefault(c => c.Names.Any(n => n.Contains(settings.SqlServerContainerName)));
+
+                if (server is not null)
+                {
+                    if (server.Ports.Any(x => x.PublicPort == settings.SqlServerPort))
+                    {
+                        return;
+                    }
+                }
+            }
+            
+
             var sqlServer = containers.FirstOrDefault(x => x.Names.Any(x => x.Contains(settings.SqlServerContainerName)));
+
+
+
             if (sqlServer is not null)
+            {
                 await client.Containers.RemoveContainerAsync(sqlServer.ID, new ContainerRemoveParameters {Force = true});
+            }
+                
 
             var usingPorts = containers.Where(c => c.Ports.Any(x => x.PublicPort == settings.SqlServerPort) && c.ID != sqlServer?.ID).ToList();
             if (usingPorts.Any())

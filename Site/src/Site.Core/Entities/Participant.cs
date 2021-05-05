@@ -17,6 +17,8 @@ namespace Site.Core.Entities
         public string Email { get; set; }
 
         public int TeamId { get; set; }
+        
+        public Team Team { get; set; }
 
         public Token Token { get; set; }
     }
