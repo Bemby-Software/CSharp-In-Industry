@@ -11,10 +11,11 @@ export class TeamHubComponent implements OnInit {
 
   constructor(private userSessionService: UserSessionService) { }
 
-  participant: ITeamParticipant | null = null;;
+  participant?: ITeamParticipant;
 
   ngOnInit(): void {
-      this.participant = this.userSessionService.getParticipant();
+    this.participant = this.userSessionService.getParticipant();
+  
   }
 
 }

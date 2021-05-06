@@ -1,11 +1,11 @@
 
 <header class="text-white flex justify-between items-center pl-4 pr-4 h-16 bg-light-blue-400">
     <div>
-        <h4 class="uppercase">{{title}}</h4>
+        <h4 class="uppercase">{{participant === undefined ? title : participant.team.name}}</h4>
     </div>
 
     <div class="flex text-light-blue-400">
-      <button (click)="goToSignIn()" class="border-1 bg-white border-gray-500 rounded-md px-4 py-2 shadow-md hover:bg-gray-100 focus:outline-none mr-2 sink">
+      <button *ngIf="!isSignedIn" (click)="goToSignIn()" class="border-1 bg-white border-gray-500 rounded-md px-4 py-2 shadow-md hover:bg-gray-100 focus:outline-none mr-2 sink">
           Sign In
       </button>
       <button class="bg-white border-1 active:bg-green-300 border-gray-500 rounded-md px-4 py-2 shadow-md hover:bg-gray-100 focus:outline-none sink">

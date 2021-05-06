@@ -26,6 +26,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GithubInstructionsNoticeComponent } from './components/signin/github-instructions-notice/github-instructions-notice.component';
 import { TeamHubComponent } from './pages/team-hub/team-hub.component';
+import { GithubAccountComponent } from './components/team-hub/github-account/github-account.component';
+import { TeamDetailsComponent } from './components/team-hub/team-details/team-details.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,9 @@ import { TeamHubComponent } from './pages/team-hub/team-hub.component';
     AddParticipantComponent,
     SigninComponent,
     GithubInstructionsNoticeComponent,
-    TeamHubComponent
+    TeamHubComponent,
+    GithubAccountComponent,
+    TeamDetailsComponent
   ],
   imports: [
     BrowserModule,

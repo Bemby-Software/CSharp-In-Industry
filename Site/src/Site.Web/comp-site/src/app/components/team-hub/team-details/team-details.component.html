@@ -1,0 +1,23 @@
+<div class="py-10 bg-white rounded-md flex items-center justify-center">
+    <div *ngIf="team" class="grid p-2 grid-cols-1 sm:grid-cols-2 md:w-2/3 gap-5">
+        <div class="col-span-full pb-5 flex justify-center items-center p-2">
+            <h2 class="text-5xl border-b border-gray-400">{{team?.name + " Team Hub"}}</h2>
+        </div>
+
+        <div class="col-span-auto h-20 border p-5 rounded-md border-light-blue-400"
+            *ngFor="let participant of team.participants; let i = index">
+            <div class="flex items-center justify-start">
+                <div
+                    class="rounded-full flex justify-center items-center text-4xl font-extrabold h-20 w-20 bg-light-blue-400">
+                    {{i + 1}}</div>
+                <div class="flex-1 ml-5 flex items-start justify-center flex-col">
+                    <h4 class="font-medium uppercase text-3xl">{{participant.forename + " " + participant.surname}}</h4>
+                    <p class="text-sm font-light">{{participant.email}}</p>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+</div>

@@ -1,23 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from "rxjs";
+import { Observable, of, Subject } from "rxjs";
 import { IResult } from "../models/errors";
 import { ParticipantService } from "./participant.service";
 import { map, mergeMap } from "rxjs/operators";
-import { ITeamParticipant } from "../models/participant";
+import { IParticipant, ITeamParticipant } from "../models/participant";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserSessionService {
 
-  private participant: ITeamParticipant | null = null;
+  private participant?: ITeamParticipant;
+  private userSignedInSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(private participantsService: ParticipantService) {
 
   }
 
+  onUserSignInChanged(): Observable<boolean> {
+    return this.userSignedInSubject.asObservable();
+  }
+
   getParticipant() {
-    return this.participant;
+      return this.participant;
   }
 
   private getParticipantDetails(token: string): Observable<IResult> {
@@ -26,6 +31,7 @@ export class UserSessionService {
 
         if (participantResult.successful) {
           this.participant = participantResult.data;
+          this.userSignedInSubject.next(true);
         }
 
         return participantResult.asResult();

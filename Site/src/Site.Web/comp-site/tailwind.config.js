@@ -22,7 +22,11 @@ module.exports = {
         white: colors.white,
         red: colors.red
       },
-      extend: {},
+      extend: {
+        screen: {
+          'xs': '475px  '
+        }
+      },
     },
     variants: {
       extend: {

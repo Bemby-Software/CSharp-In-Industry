@@ -10,17 +10,17 @@ export interface IResult {
 }
 
 export interface IDataResult<T> extends IResult {
-  data: T | null;
+  data?: T;
   asResult(): IResult;
 }
 
 
 export class DataResult<T> implements IDataResult<T> {
-  data: T | null = null;
+  data?: T;
   error: string;
   successful: boolean;
 
-  constructor(error: string, successful: boolean, data: T | null = null) {
+  constructor(error: string, successful: boolean, data?: T) {
     this.error = error;
     this.successful = successful;
     this.data = data;

@@ -1,7 +1,20 @@
-
-<div *ngIf="participant === null">
+<div class="h-screen">
+<div *ngIf="participant === undefined">
     <h1>Sorry something went wrong</h1>
 </div>
-<div *ngIf="participant !== null">
-    {{participant.forename}}
+<div *ngIf="participant !== undefined">
+    <div class="grid grid-cols-6">
+        <div class="col-span-full h-screen-5">
+            <div class="py-5">
+                <app-team-details [team]="participant.team"></app-team-details>
+            </div>
+        </div>
+        <div class="col-span-full h-screen-3">
+            <div class="py-5">
+                <app-github-account></app-github-account>
+            </div>
+        </div>
+       
+    </div>
+</div>
 </div>
