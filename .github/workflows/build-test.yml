@@ -35,6 +35,17 @@ jobs:
       - name: Run Acceptance Tests
         run: Site/scripts/shell/test-dir.sh Site/tests/acceptance/
         
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.5
+        
+      - name: Install Angular Dependancies
+        working-directory: Site/src/Site.Web/comp-site
+        run: npm ci
+        
+      - name: Test Angular
+        working-directory: Site/src/Site.Web/comp-site
+        run: npm test
+        
       
         
       
