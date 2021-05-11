@@ -9,9 +9,7 @@ import { UserSessionService } from 'src/app/services/user-session.service';
 export class GithubAccountComponent implements OnInit {
   
 
-  repo: string = 'mumby0168/sample-repo';
-
-
+  repo: string = '';
 
   get accountLinked() {
     return false;

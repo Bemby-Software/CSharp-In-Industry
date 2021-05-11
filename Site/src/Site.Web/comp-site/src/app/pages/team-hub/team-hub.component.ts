@@ -15,8 +15,8 @@ export class TeamHubComponent implements OnInit {
   participant?: ITeamParticipant;
 
   ngOnInit(): void {
-    // this.participant = this.userSessionService.getParticipant();
-    this.participant = MockTeamParticipant;
+    this.participant = this.userSessionService.getParticipant();
+    // this.participant = MockTeamParticipant;
   
   }
 
