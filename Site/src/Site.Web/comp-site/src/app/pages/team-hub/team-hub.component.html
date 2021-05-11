@@ -3,16 +3,12 @@
     <h1>Sorry something went wrong</h1>
 </div>
 <div *ngIf="participant !== undefined">
-    <div class="grid grid-cols-6">
-        <div class="col-span-full h-screen-5">
-            <div class="py-5">
-                <app-team-details [team]="participant.team"></app-team-details>
-            </div>
+    <div class="grid grid-cols-8 gap-5 bg-white py-5">
+        <div class="col-span-full md:col-start-2 md:col-end-8">
+            <app-team-details [team]="participant.team"></app-team-details>
         </div>
-        <div class="col-span-full h-screen-3">
-            <div class="py-5">
-                <app-github-account></app-github-account>
-            </div>
+        <div class="col-span-full px-2 md:col-start-2 md:col-end-8">
+            <app-github-account></app-github-account>
         </div>
        
     </div>

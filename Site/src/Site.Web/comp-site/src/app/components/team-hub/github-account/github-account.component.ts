@@ -7,6 +7,15 @@ import { UserSessionService } from 'src/app/services/user-session.service';
   styleUrls: ['./github-account.component.scss']
 })
 export class GithubAccountComponent implements OnInit {
+  
+
+  repo: string = 'mumby0168/sample-repo';
+
+
+
+  get accountLinked() {
+    return false;
+  }
 
   constructor(private userSessionService: UserSessionService) { }
 
