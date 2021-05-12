@@ -10,3 +10,5 @@ export interface IParticipant {
 export interface ITeamParticipant extends IParticipant{
     team: ITeam;
 }
+
+
