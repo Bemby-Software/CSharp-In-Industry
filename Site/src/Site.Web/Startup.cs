@@ -35,6 +35,8 @@ namespace Site.Web
             var settings = new SiteConfiguration();
             _configuration.GetSection($"{AppPrefix}-Settings").Bind(settings);
             services.AddSingleton<ISiteConfiguration>(settings);
+
+            services.AddSingleton<IEnvironment, Environment>();
                 
             
             services.AddControllers(config => config.Filters.Add(new CoreExceptionFilter()));

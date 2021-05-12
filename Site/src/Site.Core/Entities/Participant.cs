@@ -3,7 +3,6 @@ using Dapper.Contrib.Extensions;
 
 namespace Site.Core.Entities
 {
-    [Table("Participants")]
     public class Participant
     {
         public int Id { get; set; }
