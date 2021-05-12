@@ -20,18 +20,33 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.x'
+        
+    - name: Build  
+      run: dotnet build Site/Site.sln -c Release
 
-    - name: Build with dotnet
-      run: dotnet build --configuration Release
+    - name: Register Recursive Test Searcher
+      run: chmod +x Site/scripts/shell/test-dir.sh
+
+    - name: Pull Sql Server Image
+      run: docker pull mcr.microsoft.com/mssql/server:2019-latest
+
+    - name: Run Unit Tests
+      run: Site/scripts/shell/test-dir.sh Site/tests/units/
+
+    - name: Run Integration Tests
+      run: Site/scripts/shell/test-dir.sh Site/tests/intergration/
+
+    - name: Run Acceptance Tests
+      run: Site/scripts/shell/test-dir.sh Site/tests/acceptance/
 
     - name: dotnet publish
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      run: dotnet publish Site/src/Site.Web -c Release -o ${{env.DOTNET_ROOT}}/webapp
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: .net-app
-        path: ${{env.DOTNET_ROOT}}/myapp
+        path: ${{env.DOTNET_ROOT}}/webapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +68,4 @@ jobs:
         app-name: 'comp-site-app'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_fbadb14f973b44ceab3201efc5231ef2 }}
-        package: .
+        package: ./webapp
