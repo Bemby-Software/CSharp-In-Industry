@@ -1,10 +1,6 @@
-using System.Net.Http.Json;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Azure;
 using Azure.Storage.Queues;
-using Azure.Storage.Queues.Models;
 using Site.Core.Queues.Messages;
 
 namespace Site.Core.Queues
@@ -16,6 +12,7 @@ namespace Site.Core.Queues
         public IssueTransferQueue(IQueueFactory queueFactory)
         {
             _client = queueFactory.CreateIssuesQueueClient();
+            _client.CreateIfNotExists();
         }
         
         public async Task<IssueTransferMessage> Get()

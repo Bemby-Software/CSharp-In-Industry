@@ -2,8 +2,8 @@ namespace Site.Core.Queues.Messages
 {
     public class IssueTransferMessage : BaseQueueMessage
     {
-        public int IssueId { get; set; }
+        public int IssueNumber { get; set; }
 
-        public int GitHubAccountId { get; set; }
+        public string TransferRepository { get; set; }
     }
-}
+}   

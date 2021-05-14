@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Site.Core.Apis;
+using Site.Core.Apis.GitHub;
 using Site.Core.Configuration;
 using Site.Core.DAL;
 using Site.Core.DAL.Exceptions;
@@ -14,6 +15,7 @@ using Site.Core.DAL.Repositorys;
 using Site.Core.DAL.Transactions;
 using Site.Core.Factories;
 using Site.Core.Helpers;
+using Site.Core.Queues;
 using Site.Core.Services;
 
 namespace Site.Core
@@ -23,16 +25,13 @@ namespace Site.Core
         public static IServiceCollection AddCore(this IServiceCollection services)
         {
             services.AddDataAccessLayer();
+            services.AddQueueServices();
             services.AddSingleton<ITokenHelper, TokenHelper>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IParticipantService, ParticipantService>();
             services.AddScoped<IEmailHelper, EmailHelper>();
-            services.AddScoped<IGitHubApi>(provider =>
-            {
-                var httpClient = new HttpClient {BaseAddress = new Uri("https://api.github.com")};
-                return new GitHubApi(httpClient);
-            });
+            services.AddScoped<IGitHubApi>(provider => new GitHubApi(new WrappedHttpClient(new Uri("https://api.github.com"))));
             return services;
         }
 

@@ -16,8 +16,7 @@ namespace Site.Core.Queues
         
         public QueueClient CreateIssuesQueueClient()
         {
-            var name = _environment.IsDevelopment ? "DevIssueTransferQueue" : "IssueTransferQueue";
-            return new QueueClient(_siteConfiguration.StorageAccountConnectionString, name);
+            return new(_siteConfiguration.StorageAccountConnectionString, "issue-transfer-queue");
         }
     }
 }
