@@ -1,20 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Moq;
-using Moq.Protected;
-using Newtonsoft.Json;
 using NUnit.Framework;
 using Nytte.Testing;
-using RichardSzalay.MockHttp;
 using Site.Core.Apis;
 using Site.Core.Apis.GitHub;
 using Site.Core.Apis.GitHub.DTO;
-using Site.Testing.Common.Fakes;
 
 namespace Site.Core.Unit.Tests.Apis
 {
@@ -28,6 +25,7 @@ namespace Site.Core.Unit.Tests.Apis
         public override void Setup()
         {
             _client = Mocker.GetMock<IHttpClient>();
+            _client.SetupGet(o => o.DefaultRequestHeaders).Returns(new HttpRequestMessage().Headers);
         }
 
         [Test]
@@ -58,13 +56,13 @@ namespace Site.Core.Unit.Tests.Apis
 
             var response = new HttpResponseMessage()
             {
-                Content = Json(issue),
+                Content = JsonSnakeCase(issue),
                 StatusCode = HttpStatusCode.OK
             };
 
             var issueNumber = 2;
             
-            _client.Setup(o => o.GetAsync($"/{Repository}/issues/{issueNumber}")).ReturnsAsync(response);
+            _client.Setup(o => o.GetAsync($"/repos/{Repository}/issues/{issueNumber}")).ReturnsAsync(response);
 
 
             //Act
@@ -82,11 +80,10 @@ namespace Site.Core.Unit.Tests.Apis
             Assert.AreEqual(resultLabel.Name, label.Name);
             Assert.AreEqual(resultLabel.Description, label.Description);
             Assert.AreEqual(resultLabel.Color, label.Color);
-
         }
 
-        private StringContent Json<T>(T data) =>
-            new(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+        private StringContent JsonSnakeCase<T>(T data) =>
+            new(JsonSerializer.Serialize(data, new(){PropertyNamingPolicy = SnakeCaseNamingPolicy.Instance}), Encoding.UTF8, "application/json");
         
     }
 }
