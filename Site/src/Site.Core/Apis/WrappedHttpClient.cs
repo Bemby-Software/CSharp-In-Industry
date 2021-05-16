@@ -17,6 +17,9 @@ namespace Site.Core.Apis
         public Task<HttpResponseMessage> GetAsync(string uri) 
             => _client.GetAsync(uri);
 
+        public Task<HttpResponseMessage> PostAsync(string url, HttpContent content)
+            => _client.PostAsync(url, content);
+
         public HttpRequestHeaders DefaultRequestHeaders => _client.DefaultRequestHeaders;
     }
 }

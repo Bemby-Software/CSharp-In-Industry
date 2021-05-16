@@ -5,5 +5,7 @@ namespace Site.Core.Queues.Messages
         public int IssueNumber { get; set; }
 
         public string TransferRepository { get; set; }
+
+        public int GitHubAccountId { get; set; }
     }
 }   

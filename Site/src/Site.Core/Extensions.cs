@@ -26,12 +26,13 @@ namespace Site.Core
         {
             services.AddDataAccessLayer();
             services.AddQueueServices();
+            services.AddGitHubApi();
+            services.AddScoped<IGitHubAccountService, GitHubAccountService>();
             services.AddSingleton<ITokenHelper, TokenHelper>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IParticipantService, ParticipantService>();
             services.AddScoped<IEmailHelper, EmailHelper>();
-            services.AddScoped<IGitHubApi>(provider => new GitHubApi(new WrappedHttpClient(new Uri("https://api.github.com"))));
             return services;
         }
 
