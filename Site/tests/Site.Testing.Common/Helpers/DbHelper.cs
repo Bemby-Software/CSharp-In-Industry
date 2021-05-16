@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 using Respawn;
@@ -80,7 +81,7 @@ namespace Site.Testing.Common.Helpers
 
                 if (DatabaseSchema.Count == 0)
                 {
-                    foreach (var file in Directory.GetFiles(settings.RelativeDatabaseScriptsDirectoryLocation))
+                    foreach (var file in Directory.GetFiles(settings.RelativeDatabaseScriptsDirectoryLocation).OrderBy(s => s))
                     {
                         if (Path.GetExtension(file) == ".sql")
                         {

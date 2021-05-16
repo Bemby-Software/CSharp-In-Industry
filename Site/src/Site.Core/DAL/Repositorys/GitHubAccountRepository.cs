@@ -8,7 +8,7 @@ namespace Site.Core.DAL.Repositorys
     public class GitHubAccountRepository : IGitHubAccountRepository
     {
         private readonly IDbConnection _dbConnection;
-        private const string CreateSql = @"INSERT INTO GitHubAccounts (Repository) VALUES (@Repository); SELECT SCOPE_IDENTITY();";
+        private const string CreateSql = @"INSERT INTO GitHubAccounts (Repository, TeamId) VALUES (@Repository, @TeamId); SELECT SCOPE_IDENTITY();";
         private const string GetByIdSql = "SELECT * FROM GitHubAccounts WHERE Id = @Id";
         private const string UpdateSql = "UPDATE GitHubAccounts SET IssuesCopied = @IssuesCopied, IsIssueCopyComplete = @IsIssueCopyComplete WHERE Id = @Id";
 

@@ -13,5 +13,7 @@ namespace Site.Core.Entities
         public bool IsIssueCopyComplete { get; set; }
 
         public DateTime LinkedAt { get; set; }
+
+        public int TeamId { get; set; }
     }
 }

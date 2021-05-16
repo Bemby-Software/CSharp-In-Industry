@@ -7,5 +7,6 @@ namespace Site.Core.Services
     {
         Task CreateAsync(Team team);
         Task<bool> IsTeamNameInUseAsync(string name);
+        Task<bool> IsValid(int teamId);
     }
-}
+}   

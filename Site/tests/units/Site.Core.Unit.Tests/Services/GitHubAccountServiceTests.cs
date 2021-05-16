@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using Nytte.Testing;
 using Site.Core.Apis.GitHub;
 using Site.Core.Apis.GitHub.DTO;
@@ -9,6 +11,7 @@ using Site.Core.Configuration;
 using Site.Core.DAL.Repositorys;
 using Site.Core.Entities;
 using Site.Core.Exceptions.GitHubAccount;
+using Site.Core.Exceptions.Teams;
 using Site.Core.Services;
 
 namespace Site.Core.Unit.Tests.Services
@@ -22,12 +25,14 @@ namespace Site.Core.Unit.Tests.Services
         private const string GitHubApiKey = "api-key";
         private const string GitHubApiRepository = "master-repo";
         private List<IssueDto> _issues;
+        private Mock<ITeamService> _teamService;
 
         public override void Setup()
         {
             _gitHubAccountRepository = Mocker.GetMock<IGitHubAccountRepository>();
             _gitHubApi = Mocker.GetMock<IGitHubApi>();
             _configuration = Mocker.GetMock<ISiteConfiguration>();
+            _teamService = Mocker.GetMock<ITeamService>();
             
             _configuration
                 .SetupGet(o => o.GithubApiKeys)
@@ -36,6 +41,7 @@ namespace Site.Core.Unit.Tests.Services
             _configuration
                 .SetupGet(o => o.MasterRepository)
                 .Returns(GitHubApiRepository);
+            
 
             _issues = new List<IssueDto>
             {
@@ -146,6 +152,88 @@ namespace Site.Core.Unit.Tests.Services
                         It.Is<GitHubAccount>( 
                             a => a.IsIssueCopyComplete == true 
                                  && a.IssuesCopied == 2)));
+        }
+
+
+        [Test]
+        public async Task Assign_AccountWithAccessToAll_SavesRepo()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _configuration.SetupGet(o => o.GithubApiKeys)
+                .Returns(new[] {"key1", "key2"});
+
+            _teamService.Setup(o => o.IsValid(1)).ReturnsAsync(true);
+            
+            //Act
+            await sut.Assign(GitHubApiRepository, 1);
+
+            //Assert
+            foreach (var key in _configuration.Object.GithubApiKeys)
+                _gitHubApi.Verify(o => o.CreateIssue(It.IsAny<IssueDto>(), GitHubApiRepository, key));
+            
+            _gitHubAccountRepository
+                .Verify(o => 
+                    o.CreateAsync(It.Is<GitHubAccount>(a => a.Repository == GitHubApiRepository && a.TeamId == 1)));
+        }
+        
+        
+        [Test]
+        public void Assign_InvalidTeamId_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+            
+            //Act
+            //Assert
+            Assert.ThrowsAsync<TeamNotFoundException>(() => sut.Assign(GitHubApiRepository, 1));
+        }
+        
+        [Test]
+        public void Assign_AccountWithAccessAndAccountWithout_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _configuration.SetupGet(o => o.GithubApiKeys)
+                .Returns(new[] {"key1", "key2"});
+
+            _teamService.Setup(o => o.IsValid(1)).ReturnsAsync(true);
+
+            _gitHubApi.Setup(o =>
+                    o.CreateIssue(It.IsAny<IssueDto>(), GitHubApiRepository, _configuration.Object.GithubApiKeys[1]))
+                .Throws(new Exception());
+            
+            //Act
+            //Assert
+            Assert.ThrowsAsync<WriteAccessNeededException>(() => sut.Assign(GitHubApiRepository, 1));
+            _gitHubAccountRepository.Verify(o => o.CreateAsync(It.IsAny<GitHubAccount>()), Times.Never);
+        }
+        
+        [Test]
+        public void Assign_AccountWithoutAccess_Throws()
+        {
+            //Arrange
+            var sut = CreateSut();
+
+            _configuration.SetupGet(o => o.GithubApiKeys)
+                .Returns(new[] {"key1", "key2"});
+
+            _teamService.Setup(o => o.IsValid(1)).ReturnsAsync(true);
+
+            _gitHubApi.Setup(o =>
+                    o.CreateIssue(It.IsAny<IssueDto>(), GitHubApiRepository, _configuration.Object.GithubApiKeys[1]))
+                .Throws(new Exception());
+            
+            _gitHubApi.Setup(o =>
+                    o.CreateIssue(It.IsAny<IssueDto>(), GitHubApiRepository, _configuration.Object.GithubApiKeys[0]))
+                .Throws(new Exception());
+            
+            //Act
+            //Assert
+            Assert.ThrowsAsync<WriteAccessNeededException>(() => sut.Assign(GitHubApiRepository, 1));
+            _gitHubAccountRepository.Verify(o => o.CreateAsync(It.IsAny<GitHubAccount>()), Times.Never);
         }
 
     }

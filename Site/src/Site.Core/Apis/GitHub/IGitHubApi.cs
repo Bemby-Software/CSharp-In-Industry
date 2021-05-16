@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Site.Core.Apis.GitHub.DTO;
+using Site.Core.Services;
 
 namespace Site.Core.Apis.GitHub
 {
