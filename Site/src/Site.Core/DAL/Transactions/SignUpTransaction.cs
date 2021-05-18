@@ -50,7 +50,7 @@ namespace Site.Core.DAL.Transactions
                 
                 transaction.Commit();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 transaction.Rollback();
             }

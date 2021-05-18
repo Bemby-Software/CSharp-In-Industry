@@ -21,7 +21,7 @@ namespace Site.Testing.Common.Helpers
                 var server =
                     containers.FirstOrDefault(c => c.Names.Any(n => n.Contains(settings.SqlServerContainerName)));
 
-                if (server is not null)
+                if (server is not null && server.State == "running")
                 {
                     if (server.Ports.Any(x => x.PublicPort == settings.SqlServerPort))
                     {
