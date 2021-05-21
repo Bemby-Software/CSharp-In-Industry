@@ -8,7 +8,7 @@ namespace Site.Testing.Common.Helpers
         public static string SearchForFullPath(string path, string suffix)
         {
             var current = new DirectoryInfo(Directory.GetCurrentDirectory());
-            var fullPath = "";
+            string fullPath = null;
             bool succesful = false;
 
             while (!succesful)
@@ -26,6 +26,8 @@ namespace Site.Testing.Common.Helpers
                     succesful = true;
                     fullPath = fullCandidatePath;
                 }
+
+                current = candidate;
             }
 
             return fullPath;
