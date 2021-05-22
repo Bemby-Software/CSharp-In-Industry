@@ -6,5 +6,7 @@ namespace Site.Core.Configuration
         public string[] GithubApiKeys { get; set; }
         string StorageAccountConnectionString { get; set; }
         public string MasterRepository { get; set; }
+
+        public string GitHubApiUrl { get; set; }
     }
 }

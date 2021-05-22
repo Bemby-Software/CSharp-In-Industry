@@ -1,0 +1,9 @@
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+        "GitHubApiKey1": "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",
+        "MasterRepository": "mumby0168/mumbdo",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+    }
+}

@@ -6,9 +6,9 @@ namespace Site.Core.Apis
 {
     public static class ApisExtensions
     {
-        public static IServiceCollection AddGitHubApi(this IServiceCollection services)
+        public static IServiceCollection AddGitHubApi(this IServiceCollection services, string apiUrl)
         {
-            services.AddScoped<IGitHubApi>(_ => new GitHubApi(new WrappedHttpClient(new Uri("https://api.github.com"))));
+            services.AddScoped<IGitHubApi>(_ => new GitHubApi(new WrappedHttpClient(new Uri(apiUrl))));
             return services;
         }   
     }

@@ -23,13 +23,15 @@ namespace Site.Web
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCore();
-            services.AddHealthChecks()
-                .AddCheck<DbHealthCheck>("Database");
-
             var settings = new SiteConfiguration();
             _configuration.GetSection($"{AppPrefix}-Settings").Bind(settings);
             services.AddSingleton<ISiteConfiguration>(settings);
+            
+            
+            services.AddCore(settings);
+            
+            services.AddHealthChecks()
+                .AddCheck<DbHealthCheck>("Database");
 
             services.AddSingleton<IEnvironment, Environment>();
                 

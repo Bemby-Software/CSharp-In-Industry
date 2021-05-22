@@ -10,6 +10,8 @@ using Site.Core.Entities;
 using Site.Core.Exceptions;
 using Site.Core.Exceptions.GitHubAccount;
 using Site.Core.Exceptions.Teams;
+using Site.Core.Queues;
+using Site.Core.Queues.Messages;
 
 namespace Site.Core.Services
 {
@@ -20,18 +22,21 @@ namespace Site.Core.Services
         private readonly ISiteConfiguration _siteConfiguration;
         private readonly ILogger<GitHubAccountService> _logger;
         private readonly ITeamService _teamService;
+        private readonly IQueue<IssueTransferMessage> _queue;
 
         public GitHubAccountService(IGitHubAccountRepository gitHubAccountRepository, 
             IGitHubApi gitHubApi, 
             ISiteConfiguration siteConfiguration,
             ILogger<GitHubAccountService> logger,
-            ITeamService teamService)
+            ITeamService teamService,
+            IQueue<IssueTransferMessage> queue)
         {
             _gitHubAccountRepository = gitHubAccountRepository;
             _gitHubApi = gitHubApi;
             _siteConfiguration = siteConfiguration;
             _logger = logger;
             _teamService = teamService;
+            _queue = queue;
         }
         
         public async Task IncrementIssueTransferCount(int id)
@@ -64,8 +69,21 @@ namespace Site.Core.Services
                 throw new TeamNotFoundException(teamId);
 
             await VerifyApiKeysAccess(repository);
+            
+            var issues = await _gitHubApi.GetIssues(_siteConfiguration.MasterRepository,
+                _siteConfiguration.GithubApiKeys.First());
+            
+            var gitHubAccountId = await _gitHubAccountRepository.CreateAsync(new() {Repository = repository, TeamId = teamId});
 
-            await _gitHubAccountRepository.CreateAsync(new() {Repository = repository, TeamId = teamId});
+            foreach (var issue in issues)
+            {
+                await _queue.Add(new IssueTransferMessage
+                {
+                    IssueNumber = issue.Number,
+                    TransferRepository = repository,
+                    GitHubAccountId = gitHubAccountId
+                });
+            }
         }
 
         private async Task VerifyApiKeysAccess(string repository)

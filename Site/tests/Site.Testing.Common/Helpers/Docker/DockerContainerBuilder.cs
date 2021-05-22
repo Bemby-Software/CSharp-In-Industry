@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Site.Testing.Common.Helpers.Docker
 {
-    public class ContainerBuilder
+    public class DockerContainerBuilder
     {
         private readonly Dictionary<int, int> _portMappings;
         private readonly Dictionary<string, string> _environmentVariables;
@@ -20,37 +20,37 @@ namespace Site.Testing.Common.Helpers.Docker
         
         public ReadOnlyDictionary<string, string> EnvironmentVariables => new(_environmentVariables);
 
-        public ContainerBuilder()
+        public DockerContainerBuilder()
         {
             _portMappings = new Dictionary<int, int>();
             _environmentVariables = new Dictionary<string, string>();
         }
 
-        public ContainerBuilder WithImage(string image)
+        public DockerContainerBuilder WithImage(string image)
         {
             Image = image;
             return this;
         }
         
-        public ContainerBuilder WithName(string name)
+        public DockerContainerBuilder WithName(string name)
         {
             Name = name;
             return this;
         }
 
-        public ContainerBuilder WithPortMapping(int hostPort, int containerPort)
+        public DockerContainerBuilder WithPortMapping(int hostPort, int containerPort)
         {
             _portMappings.Add(hostPort , containerPort);
             return this;
         }
         
-        public ContainerBuilder WithEnvironmentVariables(string name, string value)
+        public DockerContainerBuilder WithEnvironmentVariables(string name, string value)
         {
             _environmentVariables.Add(name , value);
             return this;
         }
 
-        public ContainerBuilder ForceRecreation()
+        public DockerContainerBuilder ForceRecreation()
         {
             Force = true;
             return this;

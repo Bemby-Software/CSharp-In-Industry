@@ -5,7 +5,7 @@ namespace Site.Testing.Common.Helpers
 {
     public static class DirectorySearcher
     {
-        public static string SearchForFullPath(string path, string suffix)
+        public static string SearchForFullPath(string path, string suffix = "")
         {
             var current = new DirectoryInfo(Directory.GetCurrentDirectory());
             string fullPath = null;

@@ -22,11 +22,11 @@ namespace Site.Core
 {
     public static class Extensions
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddCore(this IServiceCollection services, ISiteConfiguration configuration)
         {
             services.AddDataAccessLayer();
             services.AddQueueServices();
-            services.AddGitHubApi();
+            services.AddGitHubApi(configuration.GitHubApiUrl);
             services.AddScoped<IGitHubAccountService, GitHubAccountService>();
             services.AddSingleton<ITokenHelper, TokenHelper>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
