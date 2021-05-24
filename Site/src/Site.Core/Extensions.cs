@@ -3,30 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Site.Core.Apis;
+using Site.Core.Apis.GitHub;
+using Site.Core.Configuration;
 using Site.Core.DAL;
+using Site.Core.DAL.Exceptions;
 using Site.Core.DAL.Factories;
 using Site.Core.DAL.Repositorys;
 using Site.Core.DAL.Transactions;
 using Site.Core.Factories;
 using Site.Core.Helpers;
+using Site.Core.Queues;
 using Site.Core.Services;
 
 namespace Site.Core
 {
     public static class Extensions
     {
-        public static IServiceCollection AddCore(this IServiceCollection services)
+        public static IServiceCollection AddCore(this IServiceCollection services, ISiteConfiguration configuration)
         {
-            services.AddSingleton<IDbFactory, DbFactory>();
-            services.AddScoped(provider => provider.GetRequiredService<IDbFactory>().CreateDbConnection());
-            services.AddScoped<ISignUpTransaction, SignUpTransaction>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddDataAccessLayer();
+            services.AddQueueServices();
+            services.AddGitHubApi(configuration.GitHubApiUrl);
+            services.AddScoped<IGitHubAccountService, GitHubAccountService>();
             services.AddSingleton<ITokenHelper, TokenHelper>();
             services.AddSingleton<ITokenFactory, TokenFactory>();
             services.AddScoped<ITeamService, TeamService>();
             services.AddScoped<IParticipantService, ParticipantService>();
-            services.AddScoped<IParticipantRepository, ParticipantRepository>();
             services.AddScoped<IEmailHelper, EmailHelper>();
             return services;
         }

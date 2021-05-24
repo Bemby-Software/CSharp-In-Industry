@@ -1,0 +1,8 @@
+CREATE TABLE GitHubAccounts (
+    Id INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+    Repository VARCHAR(MAX) NOT NULL,
+    IssuesCopied INT DEFAULT 0,
+    IsIssueCopyComplete BIT DEFAULT 0,
+    LinkedAt DATETIME NOT NULL DEFAULT GETDATE(),
+    TeamId INT FOREIGN KEY REFERENCES Teams(Id)
+);

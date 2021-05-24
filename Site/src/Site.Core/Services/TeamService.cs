@@ -49,5 +49,11 @@ namespace Site.Core.Services
 
         public Task<bool> IsTeamNameInUseAsync(string name) 
             => _repository.IsTeamNameInUseAsync(name);
+
+        public async Task<bool> IsValid(int teamId)
+        {
+            var team = await _repository.GetAsync(teamId);
+            return team is not null;
+        }
     }
 }

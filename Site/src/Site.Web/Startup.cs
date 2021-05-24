@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,13 +23,17 @@ namespace Site.Web
         
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCore();
-            services.AddHealthChecks()
-                .AddCheck<DbHealthCheck>("Database");
-
             var settings = new SiteConfiguration();
             _configuration.GetSection($"{AppPrefix}-Settings").Bind(settings);
             services.AddSingleton<ISiteConfiguration>(settings);
+            
+            
+            services.AddCore(settings);
+            
+            services.AddHealthChecks()
+                .AddCheck<DbHealthCheck>("Database");
+
+            services.AddSingleton<IEnvironment, Environment>();
                 
             
             services.AddControllers(config => config.Filters.Add(new CoreExceptionFilter()));

@@ -10,10 +10,12 @@
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
         <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
         <PackageReference Include="Nytte.Testing" Version="0.4.24-alpha" />
+        <PackageReference Include="RichardSzalay.MockHttp" Version="6.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\src\Site.Core\Site.Core.csproj" />
+      <ProjectReference Include="..\..\Site.Testing.Common\Site.Testing.Common.csproj" />
     </ItemGroup>
 
 </Project>

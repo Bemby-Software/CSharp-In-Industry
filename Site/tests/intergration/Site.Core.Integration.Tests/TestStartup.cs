@@ -12,6 +12,7 @@ using Docker.DotNet.Models;
 using NUnit.Framework;
 using NUnit.Framework.Internal;
 using Site.Testing.Common.Helpers;
+using Site.Testing.Common.Helpers.Docker;
 using Timer = System.Threading.Timer;
 
 namespace Site.Core.Integration.Tests
@@ -23,8 +24,16 @@ namespace Site.Core.Integration.Tests
         public async Task SetupDatabaseAsync()
         {
             
-            await SqlServerContainer.StartAsync();
             var settings = TestConfiguration.GetConfiguration();
+            
+            await new DockerContainerBuilder()
+                .WithName(settings.SqlServerContainerName)
+                .WithImage(settings.SqlServerImage)
+                .WithPortMapping(settings.SqlServerPort, settings.SqlServerPort)
+                .WithEnvironmentVariables("ACCEPT_EULA", "Y")
+                .WithEnvironmentVariables("SA_PASSWORD", settings.SqlServerPassword)
+                .Start();
+            
 
             await DbHelper.EnsureStarted(settings.DbServerConnectionString, TimeSpan.FromSeconds(60));
             
