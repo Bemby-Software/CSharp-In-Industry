@@ -16,7 +16,7 @@ namespace Site.Core.Queues
         
         public QueueClient CreateIssuesQueueClient()
         {
-            return new(_siteConfiguration.StorageAccountConnectionString, "issue-transfer-queue");
+            return new(_siteConfiguration.StorageAccountConnectionString, _siteConfiguration.IssueTransferQueueName);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Site.Core.Queues
         {
             var message = await _client.ReceiveMessageAsync();
             
-            if (message is null)
+            if (message?.Value is null)
                 return null;
 
             var data = JsonSerializer.Deserialize<IssueTransferMessage>(message.Value.MessageText);

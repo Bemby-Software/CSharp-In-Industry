@@ -112,16 +112,22 @@ namespace Site.Functions.Acceptance.Tests.Features
         testRunner.Given("there is team in the database", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 5
-        testRunner.And("there is a issue transfter message on the queue", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.And("the github api is online", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 6
-        testRunner.When("the transfer function runs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+        testRunner.And("there is a issue transfter message on the queue", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 7
-        testRunner.Then("a new issue is created on github", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+        testRunner.When("the transfer function runs", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
-        testRunner.And("the issue transfer count for the user is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+        testRunner.Then("a new issue is created on github", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 9
+        testRunner.And("the issue transfer count for the account is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 10
+        testRunner.And("the queue is then empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

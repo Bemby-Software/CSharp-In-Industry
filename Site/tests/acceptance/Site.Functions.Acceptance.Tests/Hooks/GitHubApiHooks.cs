@@ -7,27 +7,25 @@ namespace Site.Functions.Acceptance.Tests.Hooks
     [Binding]
     public class GitHubApiHooks
     {
-        private readonly IObjectContainer _objectContainer;
-
         public const string GitHubApiWireMockServer = "github-api";
 
-        public GitHubApiHooks(IObjectContainer objectContainer)
-        {
-            _objectContainer = objectContainer;
-        }
+        public static WireMockServer GitHubServer;
+        
 
         [BeforeTestRun]
-        public void StartGitHubApiServer()
+        public static void StartGitHubApiServer(IObjectContainer container)
         {
             var server = WireMockServer.Start(9000);
-            _objectContainer.RegisterInstanceAs(server, GitHubApiWireMockServer);
+            GitHubServer = server;
         }
 
         [BeforeScenario]
-        public void ResetServer()
+        public static void ResetServer(IObjectContainer container)
         {
-            var server = _objectContainer.Resolve<WireMockServer>(GitHubApiWireMockServer);
-            server.Reset();
+            // if(GitHubServer is null)
+            //     return;
+            //
+            // GitHubServer.Reset();
         }
     }
 }

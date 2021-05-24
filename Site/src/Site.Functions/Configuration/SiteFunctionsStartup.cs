@@ -37,7 +37,8 @@ namespace Site.Functions.Configuration
                 StorageAccountConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage"),
                 GithubApiKeys = GetGithubApiKeys().ToArray(),
                 MasterRepository = Environment.GetEnvironmentVariable("MasterRepository"),
-                GitHubApiUrl = "https://api.github.com/"
+                GitHubApiUrl = "https://api.github.com/",
+                DbConnectionString = Environment.GetEnvironmentVariable("DbConnectionString")
             };
 
             CheckRunningMode(settings);
@@ -52,7 +53,9 @@ namespace Site.Functions.Configuration
 
             if (result == AcceptanceTestingEnvironment)
             {
-                settings.GitHubApiUrl = "http://localhost:9000/github/api/";
+                settings.GitHubApiUrl = "http://localhost:9000";
+                settings.IssueTransferQueueName = "issue-transfer-queue-acceptance-testing";
+                settings.DbConnectionString = "Server=localhost;Database=TestDatabase;User Id=SA;Password=-P@assword123-";
             }
         }
 

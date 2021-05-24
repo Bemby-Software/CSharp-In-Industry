@@ -1,5 +1,7 @@
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Site.Core.Apis.GitHub;
@@ -43,10 +45,13 @@ namespace Site.Functions
                     logger.LogInformation("No messages on the queue");
                     continue;
                 }
+                
+                logger.LogInformation($"Message found on queue issue number: {message.IssueNumber} and to repository: {message.TransferRepository} from master: {_siteConfiguration.MasterRepository}");
 
                 try
                 {
                     var issue = await _gitHubApi.GetIssue(message.IssueNumber, _siteConfiguration.MasterRepository, key);
+                    logger.LogInformation($"Issue to transfer: {JsonSerializer.Serialize(issue, new JsonSerializerOptions{WriteIndented = true})}");
                     await _gitHubApi.CreateIssue(issue, message.TransferRepository, key);
                 }
                 catch (Exception e)
